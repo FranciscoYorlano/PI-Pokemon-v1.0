@@ -1,5 +1,6 @@
+// -> array de types
 const getAllTypesHandler = (req, res) => {
-    res.send("getAllTypesHandler");
+    res.json({ handler: "getAllTypesHandler" });
 };
 
 module.exports = { getAllTypesHandler };
