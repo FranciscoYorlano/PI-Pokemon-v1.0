@@ -1,24 +1,29 @@
-// -> array de pokemons con su información básica
+// Controllers
+const { getAllPokemons } = require("../controllers/pokemonsControllers");
+
+// ======================== Handlers
+
 const getAllPokemonsHandler = (req, res) => {
+    // -> array de pokemons (id, name, types)
     res.json({ handler: "getAllPokemonsHandler" });
 };
 
-// -> array de pokemons que coinciden con el name. Case insensitive
 const getPokemonByNameHandler = (req, res) => {
+    // -> array de pokemons con name = name. Case insensitive
     const { name } = req.query;
 
     res.json({ handler: "getPokemonByNameHandler", name: name });
 };
 
-// -> pokemon detallado que coincide con el id (id o uuid)
 const getPokemonByIdHandler = (req, res) => {
+    // -> pokemon con id = id (apto uuid)
     const { id } = req.params;
 
     res.json({ handler: "getPokemonByIdHandler", id: id });
 };
 
-// -> create new pokemon in db
 const createNewPokemonHandler = (req, res) => {
+    // -> create new pokemon
     const { pokemon } = req.body;
 
     res.json({ handler: "createNewPokemonHandler", pokemon: pokemon });
@@ -26,7 +31,7 @@ const createNewPokemonHandler = (req, res) => {
 
 module.exports = {
     getAllPokemonsHandler,
-    getPokemonByIdHandler,
     getPokemonByNameHandler,
+    getPokemonByIdHandler,
     createNewPokemonHandler,
 };
