@@ -3,10 +3,10 @@ const { Router } = require("express");
 const pokemonsRouter = require("./pokemonsRouter");
 const typesRouter = require("./typesRouter");
 
-// Index router
+// ======================== Index router
 const router = Router();
 
-// Routers
+// ======================== Routers
 router.use("/pokemons", pokemonsRouter);
 
 router.use("/types", typesRouter);

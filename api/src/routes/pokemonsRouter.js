@@ -1,8 +1,6 @@
 const { Router } = require("express");
 
-const pokemonsRouter = Router();
-
-// Handlers
+// Handlers requires
 const {
     getAllPokemonsHandler,
     getPokemonByIdHandler,
@@ -10,7 +8,9 @@ const {
     createNewPokemonHandler,
 } = require("../handlers/pokemonsHandlers");
 
-// Pokemons Routes
+const pokemonsRouter = Router();
+
+// ======================== Pokemons Routes
 pokemonsRouter.get("", getAllPokemonsHandler);
 
 pokemonsRouter.get("/name", getPokemonByNameHandler);

@@ -1,11 +1,11 @@
 const { Router } = require("express");
 
-const typesRouter = Router();
-
-// Handlers
+// Handlers requires
 const { getAllTypesHandler } = require("../handlers/typesHandlers");
 
-// Pokemons Routes
+const typesRouter = Router();
+
+// ======================== Types Routes
 
 typesRouter.get("", getAllTypesHandler);
 
