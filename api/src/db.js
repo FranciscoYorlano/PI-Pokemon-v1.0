@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
 // ======================== Models definers
 pokemonDefiner(sequelize);
 typeDefiner(sequelize);
-const { Pokemon, Type } = sequelize.models;
+const { Pokemon, Type, PokemonTypes } = sequelize.models;
 
 // ======================== Models relations
 Pokemon.belongsToMany(Type, { through: "PokemonsTypes" });

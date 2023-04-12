@@ -30,7 +30,9 @@ const apiPokemonTemplateCreator = (pokemon) => {
     };
 };
 
-const dbPokemonTemplateCreator = (pokemon, types) => {
+const dbPokemonTemplateCreator = (pokemon) => {
+    const types = pokemon.Types.map((t) => t.name);
+
     return {
         id: pokemon.id,
         name: pokemon.name,
@@ -53,22 +55,31 @@ Obtiene un arreglo de objetos, donde cada objeto es un pokemon con su informaci�
 */
 const getAllPokemons = () => {};
 
-/*
-📍 GET | /pokemons/name?="..."
-Esta ruta debe obtener todos aquellos pokemons que coinciden con el nombre recibido por query.
-Debe poder buscarlo independientemente de mayúsculas o minúsculas.
-Si no existe el pokemon, debe mostrar un mensaje adecuado.
-Debe buscar tanto los de la API como los de la base de datos.
-*/
-const getPokemonByName = (name) => {};
+const getPokemonsByName = async (name) => {
+    const pokemonsDb = await Pokemon.findAll({
+        where: { name: name.toLowerCase() },
+        include: Type,
+    });
 
-/*
-    GET | /pokemons/:idPokemon
-    Esta ruta obtiene el detalle de un pokemon específico. Es decir que devuelve un objeto con la información pedida en el detalle de un pokemon.
-    El pokemon es recibido por parámetro (ID).
-    Tiene que incluir los datos del tipo de pokemon al que está asociado.
-    Debe funcionar tanto para los pokemones de la API como para los de la base de datos.
-*/
+    const pokemons = pokemonsDb.map((pokemon) =>
+        dbPokemonTemplateCreator(pokemon)
+    );
+
+    try {
+        const response = await axios.get(
+            `${EXT_API_URL}/pokemon/${name.toLowerCase()}`
+        );
+        if (response.data.name) {
+            pokemons.push(apiPokemonTemplateCreator(response.data));
+        }
+    } catch (error) {}
+
+    if (pokemons.length === 0) {
+        throw new Error(`Name "${name}" not found.`);
+    }
+    return pokemons;
+};
+
 const getPokemonById = async (id, source) => {
     if (source === "apiExt") {
         try {
@@ -76,7 +87,7 @@ const getPokemonById = async (id, source) => {
             return apiPokemonTemplateCreator(response.data);
         } catch (error) {
             if (error.message === "Request failed with status code 404") {
-                throw new Error(`Id ${id} not found in ${source}`);
+                throw new Error(`Id "${id}" not found in ${source}`);
             } else {
                 throw new Error(error.message);
             }
@@ -84,17 +95,12 @@ const getPokemonById = async (id, source) => {
     }
 
     if (source === "db") {
-        const pokemon = await Pokemon.findByPk(id);
+        const pokemon = await Pokemon.findByPk(id, { include: Type });
         if (pokemon === null) {
-            throw new Error(`Id ${id} not found in ${source}`);
+            throw new Error(`Id "${id}" not found in ${source}`);
         }
-        const pokemonTypes = await PokemonTypes.findAll({
-            where: {
-                pokemonId: id,
-            },
-        });
 
-        return pokemon;
+        return dbPokemonTemplateCreator(pokemon);
     }
 };
 
@@ -156,7 +162,7 @@ const createNewPokemon = async (pokemon) => {
 
 module.exports = {
     getAllPokemons,
-    getPokemonByName,
+    getPokemonsByName,
     getPokemonById,
     createNewPokemon,
 };
