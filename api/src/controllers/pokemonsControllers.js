@@ -49,11 +49,22 @@ const dbPokemonTemplateCreator = (pokemon) => {
 
 // ======================== Pokemons Controllers
 
-/*
- GET | /pokemons
-Obtiene un arreglo de objetos, donde cada objeto es un pokemon con su información.
-*/
-const getAllPokemons = () => {};
+const getAllPokemons = async () => {
+    // DB First pokemons
+    const query = await Pokemon.findAll({ include: Type });
+    const dbPokemons = query.map((q) => dbPokemonTemplateCreator(q));
+
+    // PokeApi pokemons
+    const data = await axios.get(`${EXT_API_URL}/pokemon?limit=50`);
+    const results = data.data.results;
+    const apiPromises = results.map((r) => axios(r.url));
+    const apiResponses = await Promise.all(apiPromises);
+    const apiPokemons = apiResponses.map((r) => {
+        return apiPokemonTemplateCreator(r.data);
+    });
+
+    return [...dbPokemons, ...apiPokemons];
+};
 
 const getPokemonsByName = async (name) => {
     const pokemonsDb = await Pokemon.findAll({

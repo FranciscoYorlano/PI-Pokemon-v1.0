@@ -8,10 +8,15 @@ const {
 
 // ======================== Handlers
 
-// falta
-const getAllPokemonsHandler = (req, res) => {
+const getAllPokemonsHandler = async (req, res) => {
     // -> array de pokemons (id, name, types)
-    res.json({ handler: "getAllPokemonsHandler" });
+
+    try {
+        const pokemons = await getAllPokemons();
+        res.status(200).json(pokemons);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 };
 
 const getPokemonsByNameHandler = async (req, res) => {
@@ -45,7 +50,7 @@ const createNewPokemonHandler = async (req, res) => {
 
     try {
         const response = await createNewPokemon(pokemon);
-        res.status(200).json(response);
+        res.status(201).json(response);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
