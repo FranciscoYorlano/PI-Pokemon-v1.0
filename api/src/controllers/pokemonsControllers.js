@@ -9,7 +9,7 @@ const REGEX_URL =
     /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 
 // Models
-const Pokemon = require("../db");
+const { Pokemon, Type, PokemonsTypes } = require("../db");
 
 // ======================== Pokemons templates creators
 
@@ -30,8 +30,29 @@ const apiPokemonTemplateCreator = (pokemon) => {
     };
 };
 
+const dbPokemonTemplateCreator = (pokemon, types) => {
+    const types = pokemon.types.map((t) => t.type.name);
+
+    return {
+        id: pokemon.id,
+        name: pokemon.name,
+        image: pokemon.image,
+        life: pokemon.life,
+        attack: pokemon.attack,
+        defense: pokemon.defense,
+        speed: pokemon.speed,
+        height: pokemon.height,
+        weight: pokemon.weight,
+        types: types,
+    };
+};
+
 // ======================== Pokemons Controllers
 
+/*
+ GET | /pokemons
+Obtiene un arreglo de objetos, donde cada objeto es un pokemon con su información.
+*/
 const getAllPokemons = () => {};
 
 const getPokemonByName = (name) => {};
@@ -58,7 +79,17 @@ const getPokemonById = async (id, source) => {
     }
 
     if (source === "db") {
-        return { source: source, api: EXT_API_URL };
+        const pokemon = await Pokemon.findByPk(id);
+        if (pokemon === null) {
+            throw new Error(`Id ${id} not found in ${source}`);
+        }
+        const pokemonTypes = await PokemonTypes.findAll({
+            where: {
+                pokemonId: id,
+            },
+        });
+
+        return pokemon;
     }
 };
 
@@ -101,7 +132,24 @@ const createNewPokemon = async (pokemon) => {
         throw new Error("Pokemon stats must be greater than or equal to zero.");
     }
 
-    return "ok";
+    const typesCreated = await Type.findAll();
+    const typeIdsCreated = typesCreated.map((type) => type.id);
+    if (!types.every((t) => typeIdsCreated.includes(t))) {
+        throw new Error("Pokemon types must be exist.");
+    }
+
+    // Creción de Pokemon
+
+    const newPokemon = await Pokemon.create(pokemon);
+
+    for (let i = 0; i < types.length; i++) {
+        await PokemonsTypes.create({
+            PokemonId: newPokemon.id,
+            TypeId: types[i],
+        });
+    }
+
+    return newPokemon;
 };
 
 module.exports = {
