@@ -31,8 +31,6 @@ const apiPokemonTemplateCreator = (pokemon) => {
 };
 
 const dbPokemonTemplateCreator = (pokemon, types) => {
-    const types = pokemon.types.map((t) => t.type.name);
-
     return {
         id: pokemon.id,
         name: pokemon.name,
@@ -55,6 +53,13 @@ Obtiene un arreglo de objetos, donde cada objeto es un pokemon con su informaci�
 */
 const getAllPokemons = () => {};
 
+/*
+📍 GET | /pokemons/name?="..."
+Esta ruta debe obtener todos aquellos pokemons que coinciden con el nombre recibido por query.
+Debe poder buscarlo independientemente de mayúsculas o minúsculas.
+Si no existe el pokemon, debe mostrar un mensaje adecuado.
+Debe buscar tanto los de la API como los de la base de datos.
+*/
 const getPokemonByName = (name) => {};
 
 /*
@@ -93,12 +98,6 @@ const getPokemonById = async (id, source) => {
     }
 };
 
-/*
-POST | /pokemons
-Esta ruta recibirá todos los datos necesarios para crear un pokemon y relacionarlo con sus tipos solicitados.
-Toda la información debe ser recibida por body.
-Debe crear un pokemon en la base de datos, y este debe estar relacionado con sus tipos indicados (al menos uno).
-*/
 const createNewPokemon = async (pokemon) => {
     const { name, image, life, attack, defense, speed, height, weight, types } =
         pokemon;
@@ -132,6 +131,10 @@ const createNewPokemon = async (pokemon) => {
         throw new Error("Pokemon stats must be greater than or equal to zero.");
     }
 
+    if (types.length === 0) {
+        throw new Error("Pokemon must be have at least one type.");
+    }
+
     const typesCreated = await Type.findAll();
     const typeIdsCreated = typesCreated.map((type) => type.id);
     if (!types.every((t) => typeIdsCreated.includes(t))) {
@@ -139,7 +142,6 @@ const createNewPokemon = async (pokemon) => {
     }
 
     // Creción de Pokemon
-
     const newPokemon = await Pokemon.create(pokemon);
 
     for (let i = 0; i < types.length; i++) {
