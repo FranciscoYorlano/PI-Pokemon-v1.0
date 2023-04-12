@@ -21,6 +21,7 @@ module.exports = (sequelize) => {
         life: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            defaultValue: 0,
             validate: {
                 min: 0,
             },
@@ -28,6 +29,7 @@ module.exports = (sequelize) => {
         attack: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            defaultValue: 0,
             validate: {
                 min: 0,
             },
@@ -35,6 +37,7 @@ module.exports = (sequelize) => {
         defense: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            defaultValue: 0,
             validate: {
                 min: 0,
             },
