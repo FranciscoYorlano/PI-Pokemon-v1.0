@@ -1,5 +1,10 @@
 // Controllers
-const { getAllPokemons } = require("../controllers/pokemonsControllers");
+const {
+    getAllPokemons,
+    getPokemonByName,
+    getPokemonById,
+    createNewPokemon,
+} = require("../controllers/pokemonsControllers");
 
 // ======================== Handlers
 
@@ -15,18 +20,30 @@ const getPokemonByNameHandler = (req, res) => {
     res.json({ handler: "getPokemonByNameHandler", name: name });
 };
 
-const getPokemonByIdHandler = (req, res) => {
+const getPokemonByIdHandler = async (req, res) => {
     // -> pokemon con id = id (apto uuid)
     const { id } = req.params;
 
-    res.json({ handler: "getPokemonByIdHandler", id: id });
+    const source = isNaN(id) ? "db" : "apiExt";
+
+    try {
+        const pokemon = await getPokemonById(id, source);
+        res.status(200).json(pokemon);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 };
 
-const createNewPokemonHandler = (req, res) => {
+const createNewPokemonHandler = async (req, res) => {
     // -> create new pokemon
-    const { pokemon } = req.body;
+    const pokemon = req.body;
 
-    res.json({ handler: "createNewPokemonHandler", pokemon: pokemon });
+    try {
+        const response = await createNewPokemon(pokemon);
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 };
 
 module.exports = {
