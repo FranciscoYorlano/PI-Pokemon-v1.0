@@ -1,5 +1,5 @@
 // ======================== React Router
-import { Route, Routes } from "react-router-dom/cjs/react-router-dom.min";
+import { Route, Routes } from "react-router-dom";
 
 // ======================== Components
 import Card from "./components/card/Card";
@@ -18,12 +18,14 @@ import "./App.css";
 function App() {
     return (
         <>
+            <Header />
             <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/detail/:id" element={<Detail />} />
                 <Route path="/create" element={<Create />} />
             </Routes>
+            <Footer />
         </>
     );
 }
