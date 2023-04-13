@@ -2,7 +2,6 @@
 import { Route, Routes } from "react-router-dom";
 
 // ======================== Components
-import Card from "./components/card/Card";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 
@@ -13,7 +12,6 @@ import Home from "./pages/home/Home";
 import Landing from "./pages/landing/Landing";
 
 // ======================== Styles
-import "./App.css";
 
 function App() {
     return (
