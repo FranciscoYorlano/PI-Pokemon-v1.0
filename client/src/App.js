@@ -1,11 +1,26 @@
-import './App.css';
+// ======================== React Router
+import { Route, Routes } from "react-router-dom/cjs/react-router-dom.min";
+
+// ======================== Pages
+import Create from "./pages/create/Create";
+import Detail from "./pages/detail/Detail";
+import Home from "./pages/home/Home";
+import Landing from "./pages/landing/Landing";
+
+// ======================== Styles
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Henry Pokemon</h1>
-    </div>
-  );
+    return (
+        <>
+            <Routes>
+                <Route path="/" element={<Landing />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/detail/:id" element={<Detail />} />
+                <Route path="/create" element={<Create />} />
+            </Routes>
+        </>
+    );
 }
 
 export default App;
