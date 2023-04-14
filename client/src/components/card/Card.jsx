@@ -5,7 +5,7 @@ import styles from "./card.module.css";
 import { Link } from "react-router-dom";
 
 const Card = (props) => {
-    const { id, name, image, life, attack, types } = props.pokemon;
+    const { id, name, image, types } = props.pokemon;
 
     const nameU = name[0].toUpperCase() + name.substring(1);
 
