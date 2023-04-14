@@ -1,4 +1,4 @@
-export default validateCreate = (newPokemon) => {
+const validateCreate = (newPokemon) => {
     const { name, image, life, attack, defense, speed, height, weight, types } =
         newPokemon;
 
@@ -57,5 +57,10 @@ export default validateCreate = (newPokemon) => {
     if (weight && weight < 0)
         errors.weight = "Pokemon weight must be greater or equal to zero";
 
+    if (types.length > 5)
+        errors.types = "Pokemon must not have more than 5 types.";
+
     return errors;
 };
+
+export default validateCreate;

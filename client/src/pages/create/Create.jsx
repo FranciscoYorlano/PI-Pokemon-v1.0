@@ -306,6 +306,7 @@ const Create = () => {
                                 </label>
                             </div>
                         ))}
+                        <span className={styles.spanError}>{errors.types}</span>
                     </div>
 
                     <button
