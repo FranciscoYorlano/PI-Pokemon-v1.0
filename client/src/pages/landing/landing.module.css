@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.heroContainer {
+.textContainer {
     width: 50%;
     padding: 0 32px;
     box-sizing: border-box;
@@ -25,7 +25,7 @@
     margin-bottom: 32px;
 }
 
-.ctaButton {
+.button {
     background: linear-gradient(to bottom right, #8a2be2, #4b0082);
     color: #ffffff;
     padding: 16px 24px;

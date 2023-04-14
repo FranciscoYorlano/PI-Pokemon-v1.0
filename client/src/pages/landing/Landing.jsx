@@ -8,13 +8,13 @@ import { Link } from "react-router-dom";
 const Landing = () => {
     return (
         <div className={styles.landingContainer}>
-            <div className={styles.heroContainer}>
+            <div className={styles.textContainer}>
                 <h1 className={styles.title}>Catch 'Em All!</h1>
                 <p className={styles.description}>
                     Explore our collection of Pokemon and find your favorites.
                 </p>
                 <Link to="/home">
-                    <button className={styles.ctaButton}>Explore</button>
+                    <button className={styles.button}>Explore</button>
                 </Link>
             </div>
             <div className={styles.imageContainer}>
