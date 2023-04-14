@@ -5,6 +5,10 @@ body {
     padding: 0px;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 * {
     font-size: 14px;
     -webkit-user-select: none;

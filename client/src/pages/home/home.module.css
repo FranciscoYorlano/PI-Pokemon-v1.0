@@ -1,0 +1,45 @@
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-gap: 2rem;
+    grid-auto-flow: dense;
+    justify-items: center;
+    margin: 1rem;
+}
+
+.navBar {
+    display: flex;
+    align-items: center;
+    padding: 0rem 2rem;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    height: 60px;
+    margin: 0;
+    border-bottom: solid 1px#006571;
+}
+
+.selectContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #006571;
+}
+
+.navBar select {
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+    border: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    outline: none;
+    color: #006571;
+    font-weight: 500;
+    background-color: #f9a826;
+}
+
+@media (max-width: 768px) {
+    .navBar span {
+        display: none;
+    }
+}

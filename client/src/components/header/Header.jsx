@@ -5,6 +5,9 @@ import logo from "../../assets/logo.png";
 // ======================== React Router
 import { Link } from "react-router-dom";
 
+// ======================== Hooks
+import { useState } from "react";
+
 const Header = () => {
     return (
         <div className={styles.container}>
@@ -23,7 +26,6 @@ const Header = () => {
                     placeholder="Pokemon name or id"
                     className={styles.input}
                     name="search"
-                    value=""
                 />
                 <button className={styles.button}>Search</button>
             </div>

@@ -34,6 +34,10 @@
     font-size: 1.2rem;
 }
 
+.navLinks a:visited {
+    color: #006571;
+}
+
 .search {
     justify-self: end;
     display: flex;
@@ -63,4 +67,11 @@
 .button:hover {
     background-color: #006571;
     color: #f5dd0a;
+}
+
+/* Dropdown */
+@media (max-width: 768px) {
+    .input {
+        width: 10rem;
+    }
 }
