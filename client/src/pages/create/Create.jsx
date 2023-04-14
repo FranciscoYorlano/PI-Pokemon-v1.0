@@ -2,82 +2,372 @@
 import styles from "./create.module.css";
 import pikachu from "../../assets/pikachu.png";
 
+// ======================== Functions
+import validateCreate from "../../functions/validateCreate";
+
+// ======================== Hooks
+import { useEffect, useState } from "react";
+
+const allTypes = [
+    {
+        id: 1,
+        name: "normal",
+    },
+    {
+        id: 2,
+        name: "fighting",
+    },
+    {
+        id: 3,
+        name: "flying",
+    },
+    {
+        id: 4,
+        name: "poison",
+    },
+    {
+        id: 5,
+        name: "ground",
+    },
+    {
+        id: 6,
+        name: "rock",
+    },
+    {
+        id: 7,
+        name: "bug",
+    },
+    {
+        id: 8,
+        name: "ghost",
+    },
+    {
+        id: 9,
+        name: "steel",
+    },
+    {
+        id: 10,
+        name: "fire",
+    },
+    {
+        id: 11,
+        name: "water",
+    },
+    {
+        id: 12,
+        name: "grass",
+    },
+    {
+        id: 13,
+        name: "electric",
+    },
+    {
+        id: 14,
+        name: "psychic",
+    },
+    {
+        id: 15,
+        name: "ice",
+    },
+    {
+        id: 16,
+        name: "dragon",
+    },
+    {
+        id: 17,
+        name: "dark",
+    },
+    {
+        id: 18,
+        name: "fairy",
+    },
+    {
+        id: 19,
+        name: "unknown",
+    },
+    {
+        id: 20,
+        name: "shadow",
+    },
+];
+
 const Create = () => {
+    const [newPokemon, setNewPokemon] = useState({
+        name: "",
+        image: "",
+        life: 0,
+        attack: 0,
+        defense: 0,
+        speed: 0,
+        height: 0,
+        weight: 0,
+        types: [],
+    });
+    const [errors, setErrors] = useState({
+        name: "",
+        image: "",
+        life: "",
+        attack: "",
+        defense: "",
+        speed: "",
+        height: "",
+        weight: "",
+        types: "",
+    });
+
+    const handleChange = (event) => {
+        const property = event.target.name;
+        const value = event.target.value;
+
+        setNewPokemon({ ...newPokemon, [property]: value });
+        setErrors(validateCreate({ ...newPokemon, [property]: value }));
+    };
+
+    const handleCheckboxSelection = (event) => {
+        const typeId = event.target.value;
+        const typeName = event.target.name;
+
+        if (event.target.checked) {
+            setNewPokemon({
+                ...newPokemon,
+                types: [...newPokemon.types, { id: typeId, name: typeName }],
+            });
+        } else {
+            setNewPokemon({
+                ...newPokemon,
+                types: newPokemon.types.filter((type) => type.id !== typeId),
+            });
+        }
+    };
+
+    const submitHandler = (event) => {
+        event.preventDefault();
+        alert(newPokemon);
+    };
+
+    const buttonDisabled =
+        Object.values(errors).some((error) => error !== "") ||
+        newPokemon.name === "";
+
     return (
         <div className={styles.createContainer}>
             <div className={styles.formContainer}>
+                <form onSubmit={submitHandler}>
+                    <div className={styles.row}>
+                        <div className={styles.text}>
+                            <label htmlFor="name">Name:</label>
+                            <input
+                                className={`${styles.input} ${
+                                    errors.name && styles.error
+                                }`}
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Pikachu"
+                                value={newPokemon.name}
+                                onChange={handleChange}
+                            />
+                            <span className={styles.spanError}>
+                                {errors.name}
+                            </span>
+                        </div>
+                        <div className={styles.text}>
+                            <label htmlFor="image">Image Link:</label>
+                            <input
+                                className={`${styles.input} ${
+                                    errors.image && styles.error
+                                }`}
+                                type="text"
+                                id="image"
+                                name="image"
+                                placeholder="https://pokemon.com/pikachu.png"
+                                value={newPokemon.image}
+                                onChange={handleChange}
+                            />
+                            <span className={styles.spanError}>
+                                {errors.image}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className={styles.statsRow}>
+                        <div className={styles.stat}>
+                            <label htmlFor="life">Life:</label>
+                            <input
+                                className={`${styles.input} ${
+                                    errors.life && styles.error
+                                }`}
+                                type="number"
+                                id="life"
+                                name="life"
+                                value={newPokemon.life}
+                                onChange={handleChange}
+                            />
+                            <span className={styles.spanError}>
+                                {errors.life}
+                            </span>
+                        </div>
+                        <div className={styles.stat}>
+                            <label htmlFor="attack">Attack:</label>
+                            <input
+                                className={`${styles.input} ${
+                                    errors.attack && styles.error
+                                }`}
+                                type="number"
+                                id="attack"
+                                name="attack"
+                                value={newPokemon.attack}
+                                onChange={handleChange}
+                            />
+                            <span className={styles.spanError}>
+                                {errors.attack}
+                            </span>
+                        </div>
+                        <div className={styles.stat}>
+                            <label htmlFor="defense">Defense:</label>
+                            <input
+                                className={`${styles.input} ${
+                                    errors.defense && styles.error
+                                }`}
+                                type="number"
+                                id="defense"
+                                name="defense"
+                                value={newPokemon.defense}
+                                onChange={handleChange}
+                            />
+                            <span className={styles.spanError}>
+                                {errors.defense}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className={styles.statsRow}>
+                        <div className={styles.stat}>
+                            <label htmlFor="speed">Speed:</label>
+                            <input
+                                className={`${styles.input} ${
+                                    errors.speed && styles.error
+                                }`}
+                                type="number"
+                                id="speed"
+                                name="speed"
+                                value={newPokemon.speed}
+                                onChange={handleChange}
+                            />
+                            <span className={styles.spanError}>
+                                {errors.speed}
+                            </span>
+                        </div>
+                        <div className={styles.stat}>
+                            <label htmlFor="height">Height:</label>
+                            <input
+                                className={`${styles.input} ${
+                                    errors.height && styles.error
+                                }`}
+                                type="number"
+                                id="height"
+                                name="height"
+                                value={newPokemon.height}
+                                onChange={handleChange}
+                            />
+                            <span className={styles.spanError}>
+                                {errors.height}
+                            </span>
+                        </div>
+                        <div className={styles.stat}>
+                            <label htmlFor="weight">Weight:</label>
+                            <input
+                                className={`${styles.input} ${
+                                    errors.weight && styles.error
+                                }`}
+                                type="number"
+                                id="weight"
+                                name="weight"
+                                value={newPokemon.weight}
+                                onChange={handleChange}
+                            />
+                            <span className={styles.spanError}>
+                                {errors.weight}
+                            </span>
+                        </div>
+                    </div>
+                    <div className={styles.typesSelectors}>
+                        {allTypes.map((type) => (
+                            <div className={styles.typeSelector} key={type.id}>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        id={type.id}
+                                        value={type.id}
+                                        name={type.name}
+                                        onChange={handleCheckboxSelection}
+                                    />
+                                    {type.name}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+
+                    <button
+                        disabled={buttonDisabled}
+                        className={styles.buttonSubmit}
+                    >
+                        Submit
+                    </button>
+                </form>
+            </div>
+            <div className={styles.previewContainer}>
                 <h1 className={styles.title}>Catch Your Dream Pokemon!</h1>
                 <p className={styles.description}>
                     Let your imagination run wild as you design your dream
                     Pokemon.
                 </p>
-                <form action="">
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" id="name" name="name" />
 
-                    <label htmlFor="image">Image Link:</label>
-                    <input type="text" id="image" name="image" />
-
-                    <div className={styles.statsRow}>
-                        <div className={styles.stat}>
-                            <label htmlFor="life">Life:</label>
-                            <input type="number" id="life" name="life" />
-                        </div>
-                        <div className={styles.stat}>
-                            <label htmlFor="attack">Attack:</label>
-                            <input type="number" id="attack" name="attack" />
-                        </div>
-                        <div className={styles.stat}>
-                            <label htmlFor="defense">Defense:</label>
-                            <input type="number" id="defense" name="defense" />
-                        </div>
-                        <div className={styles.stat}>
-                            <label htmlFor="speed">Speed:</label>
-                            <input type="number" id="speed" name="speed" />
-                        </div>
+                <img
+                    src={
+                        newPokemon.image.slice(-3) === "png" ||
+                        (newPokemon.image.slice(-3) === "jpg" && !errors.image)
+                            ? newPokemon.image
+                            : pikachu
+                    }
+                    alt="Create Pokemon"
+                />
+                <div className={styles.info}>
+                    <h2>
+                        {newPokemon.name.length && !errors.name
+                            ? newPokemon.name
+                            : "Your pokemon"}
+                    </h2>
+                </div>
+                {newPokemon.types.length ? (
+                    <div className={styles.types}>
+                        {newPokemon.types.map((type) => (
+                            <span
+                                key={type.id}
+                                className={`${styles.type} ${
+                                    styles[`${type.name}`]
+                                }`}
+                            >
+                                {type.name}
+                            </span>
+                        ))}
                     </div>
-
-                    <div className={styles.statsRow}>
-                        <div className={styles.stat}>
-                            <label htmlFor="height">Height:</label>
-                            <input type="number" id="height" name="height" />
-                        </div>
-                        <div className={styles.stat}>
-                            <label htmlFor="weight">Weight:</label>
-                            <input type="number" id="weight" name="weight" />
-                        </div>
-                        <div className={styles.stat}>
-                            <label htmlFor="types">Types:</label>
-                            <select id="types" name="types" multiple>
-                                <option value="1">Type 1</option>
-                                <option value="2">Type 2</option>
-                                <option value="3">Type 3</option>
-                                <option value="4">Type 4</option>
-                                <option value="5">Type 5</option>
-                                <option value="6">Type 6</option>
-                                <option value="7">Type 7</option>
-                                <option value="8">Type 8</option>
-                                <option value="9">Type 9</option>
-                                <option value="10">Type 10</option>
-                                <option value="11">Type 11</option>
-                                <option value="12">Type 12</option>
-                                <option value="13">Type 13</option>
-                                <option value="14">Type 14</option>
-                                <option value="15">Type 15</option>
-                                <option value="16">Type 16</option>
-                                <option value="17">Type 17</option>
-                                <option value="18">Type 18</option>
-                                <option value="19">Type 19</option>
-                                <option value="20">Type 20</option>
-                            </select>
-                        </div>
+                ) : (
+                    <div className={styles.types}>
+                        {allTypes.slice(5, 10).map((type) => (
+                            <span
+                                key={type.id}
+                                className={`${styles.type} ${
+                                    styles[`${type.name}`]
+                                }`}
+                            >
+                                {type.name}
+                            </span>
+                        ))}
                     </div>
+                )}
 
-                    <button className={styles.button}>Submit</button>
-                </form>
-            </div>
-            <div className={styles.imageContainer}>
-                <img src={pikachu} alt="Create Pokemon" />
+                <p className={styles.previewText}>(Preview)</p>
             </div>
         </div>
     );

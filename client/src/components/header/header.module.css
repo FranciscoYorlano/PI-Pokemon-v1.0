@@ -46,9 +46,13 @@
 }
 
 .input {
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    font-weight: 400;
+    color: #495057;
+    box-shadow: none;
     padding: 0.5rem;
     border-radius: 0.8rem 0 0 0.8rem;
-    border: none;
     width: 12rem;
     outline: none;
 }

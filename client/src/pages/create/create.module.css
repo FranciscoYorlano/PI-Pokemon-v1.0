@@ -16,7 +16,7 @@
 .title {
     color: #006571;
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
 }
 
 .description {
@@ -25,58 +25,213 @@
     margin-bottom: 2rem;
 }
 
-.formContainer form {
+.row {
+    margin-top: 1.5rem;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.statsRow {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.text {
+    display: block;
+    width: 48%;
+}
+
+.stat {
+    display: block;
+    width: 30%;
 }
 
 .formContainer label {
     color: #006571;
-    font-size: 1.2rem;
-    margin-top: 20px;
-}
-
-.formContainer input {
-    border: none;
-    border-radius: 8px;
-    padding: 10px 16px;
-    margin-top: 8px;
+    font-weight: 600;
     font-size: 1rem;
-    width: 100%;
-    box-sizing: border-box;
+    margin-bottom: 1rem;
 }
 
-.formContainer select {
-    border: none;
-    border-radius: 8px;
-    padding: 10px 16px;
-    margin-top: 8px;
+.input {
+    margin-top: 0.5rem;
+    background-color: #fff;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    box-shadow: none;
+    padding: 0.5rem;
     font-size: 1rem;
+    border-radius: 0.8rem;
     width: 100%;
-    box-sizing: border-box;
-    background-color: #f2f2f2;
+    border: 1px solid #ced4da;
 }
 
-.button {
+.error {
+    border: 1px solid #cc0000;
+}
+
+.spanError {
+    color: #cc0000;
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.typesSelectors {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    grid-gap: 1rem;
+    grid-auto-flow: dense;
+    justify-items: center;
+    align-items: center;
+}
+
+.typeSelector {
+    display: flex;
+    width: 7rem;
+}
+
+.buttonSubmit {
     background: linear-gradient(to bottom right, #8a2be2, #4b0082);
     color: #ffffff;
-    padding: 16px 24px;
+    padding: 8px 12px;
+    margin-top: 1.5rem;
     border: none;
+    display: block;
+    width: 100%;
     border-radius: 8px;
     font-size: 1.5rem;
     cursor: pointer;
     font-family: "Montserrat", sans-serif;
 }
 
-.imageContainer {
+.previewContainer {
+    padding: 0 32px;
+    box-sizing: border-box;
+    text-align: center;
     width: 50%;
+}
+
+.previewContainer img {
+    width: 15rem;
+    height: 15rem;
+}
+
+.info {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 
-.imageContainer img {
-    max-width: 80%;
-    max-height: 80%;
+.name {
+    font-size: 2rem;
+    margin: 0.5rem;
+}
+
+.types {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+}
+
+.type {
+    color: #fff;
+    border-radius: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.363);
+}
+
+.previewText {
+    font-size: 1rem;
+    color: #006571;
+}
+
+/* Types backgrounds */
+.normal {
+    background-color: #a8a878;
+}
+
+.fighting {
+    background-color: #c03028;
+}
+
+.flying {
+    background-color: #a890f0;
+}
+
+.poison {
+    background-color: #a040a0;
+}
+
+.ground {
+    background-color: #e0c068;
+}
+
+.rock {
+    background-color: #b8a038;
+}
+
+.bug {
+    background-color: #a8b820;
+}
+
+.ghost {
+    background-color: #705898;
+}
+
+.steel {
+    background-color: #b8b8d0;
+}
+
+.fire {
+    background-color: #f08030;
+}
+
+.water {
+    background-color: #6890f0;
+}
+
+.grass {
+    background-color: #78c850;
+}
+
+.electric {
+    background-color: #f8d030;
+}
+
+.psychic {
+    background-color: #f85888;
+}
+
+.ice {
+    background-color: #98d8d8;
+}
+
+.dragon {
+    background-color: #7038f8;
+}
+
+.dark {
+    background-color: #705848;
+}
+
+.fairy {
+    background-color: #ee99ac;
+}
+
+.unknown {
+    background-color: #68a090;
+}
+
+.shadow {
+    background-color: #404040;
 }
