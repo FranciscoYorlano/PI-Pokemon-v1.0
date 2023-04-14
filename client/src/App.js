@@ -10,6 +10,7 @@ import Create from "./pages/create/Create";
 import Detail from "./pages/detail/Detail";
 import Home from "./pages/home/Home";
 import Landing from "./pages/landing/Landing";
+import NotFound from "./pages/notFound/NotFound";
 
 // ======================== Styles
 
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/detail/:id" element={<Detail />} />
                 <Route path="/create" element={<Create />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
         </>
