@@ -8,7 +8,7 @@
 
 .formContainer {
     width: 50%;
-    padding: 0 32px;
+    padding: 0 3rem;
     box-sizing: border-box;
     text-align: center;
 }
@@ -26,22 +26,21 @@
 }
 
 .row {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: space-between;
     gap: 1rem;
 }
 
 .statsRow {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
 }
 
 .text {
     display: block;
-    width: 48%;
+    width: 47.4%;
 }
 
 .stat {
@@ -53,17 +52,21 @@
     color: #006571;
     font-weight: 600;
     font-size: 1rem;
-    margin-bottom: 1rem;
+}
+
+.typesSelectors label {
+    margin-bottom: 0rem;
 }
 
 .input {
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2;
+    padding: 0.5rem;
     background-color: #fff;
     font-weight: 400;
     line-height: 1.5;
     color: #495057;
     box-shadow: none;
-    padding: 0.5rem;
     font-size: 1rem;
     border-radius: 0.8rem;
     width: 100%;
@@ -81,7 +84,7 @@
 }
 
 .typesSelectors {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
     grid-gap: 1rem;
@@ -99,7 +102,7 @@
     background: linear-gradient(to bottom right, #8a2be2, #4b0082);
     color: #ffffff;
     padding: 8px 12px;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     border: none;
     display: block;
     width: 100%;

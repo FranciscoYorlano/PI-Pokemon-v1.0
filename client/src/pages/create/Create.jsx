@@ -6,7 +6,7 @@ import pikachu from "../../assets/pikachu.png";
 import validateCreate from "../../functions/validateCreate";
 
 // ======================== Hooks
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const allTypes = [
     {
@@ -132,11 +132,28 @@ const Create = () => {
                 ...newPokemon,
                 types: [...newPokemon.types, { id: typeId, name: typeName }],
             });
+            setErrors(
+                validateCreate({
+                    ...newPokemon,
+                    types: [
+                        ...newPokemon.types,
+                        { id: typeId, name: typeName },
+                    ],
+                })
+            );
         } else {
             setNewPokemon({
                 ...newPokemon,
                 types: newPokemon.types.filter((type) => type.id !== typeId),
             });
+            setErrors(
+                validateCreate({
+                    ...newPokemon,
+                    types: newPokemon.types.filter(
+                        (type) => type.id !== typeId
+                    ),
+                })
+            );
         }
     };
 
@@ -306,8 +323,8 @@ const Create = () => {
                                 </label>
                             </div>
                         ))}
-                        <span className={styles.spanError}>{errors.types}</span>
                     </div>
+                    <span className={styles.spanError}>{errors.types}</span>
 
                     <button
                         disabled={buttonDisabled}
@@ -340,7 +357,7 @@ const Create = () => {
                             : "Your pokemon"}
                     </h2>
                 </div>
-                {newPokemon.types.length ? (
+                {newPokemon.types.length && !errors.types ? (
                     <div className={styles.types}>
                         {newPokemon.types.map((type) => (
                             <span
@@ -354,18 +371,7 @@ const Create = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className={styles.types}>
-                        {allTypes.slice(5, 10).map((type) => (
-                            <span
-                                key={type.id}
-                                className={`${styles.type} ${
-                                    styles[`${type.name}`]
-                                }`}
-                            >
-                                {type.name}
-                            </span>
-                        ))}
-                    </div>
+                    <div className={styles.types}></div>
                 )}
 
                 <p className={styles.previewText}>(Preview)</p>

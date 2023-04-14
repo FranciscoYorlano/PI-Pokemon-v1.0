@@ -272,13 +272,367 @@ const pokemons = [
         weight: 380,
         types: ["normal", "flying"],
     },
+    {
+        id: 23,
+        name: "ekans",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/23.png",
+        life: 35,
+        attack: 60,
+        defense: 44,
+        speed: 55,
+        height: 20,
+        weight: 69,
+        types: ["poison"],
+    },
+    {
+        id: 24,
+        name: "arbok",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png",
+        life: 60,
+        attack: 95,
+        defense: 69,
+        speed: 80,
+        height: 35,
+        weight: 650,
+        types: ["poison"],
+    },
+    {
+        id: 25,
+        name: "pikachu",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+        life: 35,
+        attack: 55,
+        defense: 40,
+        speed: 90,
+        height: 4,
+        weight: 60,
+        types: ["electric"],
+    },
+    {
+        id: 26,
+        name: "raichu",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png",
+        life: 60,
+        attack: 90,
+        defense: 55,
+        speed: 110,
+        height: 8,
+        weight: 300,
+        types: ["electric"],
+    },
+    {
+        id: 27,
+        name: "sandshrew",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/27.png",
+        life: 50,
+        attack: 75,
+        defense: 85,
+        speed: 40,
+        height: 6,
+        weight: 120,
+        types: ["ground"],
+    },
+    {
+        id: 28,
+        name: "sandslash",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/28.png",
+        life: 75,
+        attack: 100,
+        defense: 110,
+        speed: 65,
+        height: 10,
+        weight: 295,
+        types: ["ground"],
+    },
+    {
+        id: 29,
+        name: "nidoran-f",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/29.png",
+        life: 55,
+        attack: 47,
+        defense: 52,
+        speed: 41,
+        height: 4,
+        weight: 70,
+        types: ["poison"],
+    },
+    {
+        id: 30,
+        name: "nidorina",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/30.png",
+        life: 70,
+        attack: 62,
+        defense: 67,
+        speed: 56,
+        height: 8,
+        weight: 200,
+        types: ["poison"],
+    },
+    {
+        id: 31,
+        name: "nidoqueen",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/31.png",
+        life: 90,
+        attack: 92,
+        defense: 87,
+        speed: 76,
+        height: 13,
+        weight: 600,
+        types: ["poison", "ground"],
+    },
+    {
+        id: 32,
+        name: "nidoran-m",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/32.png",
+        life: 46,
+        attack: 57,
+        defense: 40,
+        speed: 50,
+        height: 5,
+        weight: 90,
+        types: ["poison"],
+    },
+    {
+        id: 33,
+        name: "nidorino",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/33.png",
+        life: 61,
+        attack: 72,
+        defense: 57,
+        speed: 65,
+        height: 9,
+        weight: 195,
+        types: ["poison"],
+    },
+    {
+        id: 34,
+        name: "nidoking",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/34.png",
+        life: 81,
+        attack: 102,
+        defense: 77,
+        speed: 85,
+        height: 14,
+        weight: 620,
+        types: ["poison", "ground"],
+    },
+    {
+        id: 35,
+        name: "clefairy",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
+        life: 70,
+        attack: 45,
+        defense: 48,
+        speed: 35,
+        height: 6,
+        weight: 75,
+        types: ["fairy"],
+    },
+    {
+        id: 36,
+        name: "clefable",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png",
+        life: 95,
+        attack: 70,
+        defense: 73,
+        speed: 60,
+        height: 13,
+        weight: 400,
+        types: ["fairy"],
+    },
+    {
+        id: 37,
+        name: "vulpix",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/37.png",
+        life: 38,
+        attack: 41,
+        defense: 40,
+        speed: 65,
+        height: 6,
+        weight: 99,
+        types: ["fire"],
+    },
+    {
+        id: 38,
+        name: "ninetales",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png",
+        life: 73,
+        attack: 76,
+        defense: 75,
+        speed: 100,
+        height: 11,
+        weight: 199,
+        types: ["fire"],
+    },
+    {
+        id: 39,
+        name: "jigglypuff",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png",
+        life: 115,
+        attack: 45,
+        defense: 20,
+        speed: 20,
+        height: 5,
+        weight: 55,
+        types: ["normal", "fairy"],
+    },
+    {
+        id: 40,
+        name: "wigglytuff",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/40.png",
+        life: 140,
+        attack: 70,
+        defense: 45,
+        speed: 45,
+        height: 10,
+        weight: 120,
+        types: ["normal", "fairy"],
+    },
+    {
+        id: 41,
+        name: "zubat",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png",
+        life: 40,
+        attack: 45,
+        defense: 35,
+        speed: 55,
+        height: 8,
+        weight: 75,
+        types: ["poison", "flying"],
+    },
+    {
+        id: 42,
+        name: "golbat",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/42.png",
+        life: 75,
+        attack: 80,
+        defense: 70,
+        speed: 90,
+        height: 16,
+        weight: 550,
+        types: ["poison", "flying"],
+    },
+    {
+        id: 43,
+        name: "oddish",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/43.png",
+        life: 45,
+        attack: 50,
+        defense: 55,
+        speed: 30,
+        height: 5,
+        weight: 54,
+        types: ["grass", "poison"],
+    },
+    {
+        id: 44,
+        name: "gloom",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png",
+        life: 60,
+        attack: 65,
+        defense: 70,
+        speed: 40,
+        height: 8,
+        weight: 86,
+        types: ["grass", "poison"],
+    },
+    {
+        id: 45,
+        name: "vileplume",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png",
+        life: 75,
+        attack: 80,
+        defense: 85,
+        speed: 50,
+        height: 12,
+        weight: 186,
+        types: ["grass", "poison"],
+    },
+    {
+        id: 46,
+        name: "paras",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/46.png",
+        life: 35,
+        attack: 70,
+        defense: 55,
+        speed: 25,
+        height: 3,
+        weight: 54,
+        types: ["bug", "grass"],
+    },
+    {
+        id: 47,
+        name: "parasect",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+        life: 60,
+        attack: 95,
+        defense: 80,
+        speed: 30,
+        height: 10,
+        weight: 295,
+        types: ["bug", "grass"],
+    },
+    {
+        id: 48,
+        name: "venonat",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/48.png",
+        life: 60,
+        attack: 55,
+        defense: 50,
+        speed: 45,
+        height: 10,
+        weight: 300,
+        types: ["bug", "poison"],
+    },
+    {
+        id: 49,
+        name: "venomoth",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png",
+        life: 70,
+        attack: 65,
+        defense: 60,
+        speed: 90,
+        height: 15,
+        weight: 125,
+        types: ["bug", "poison"],
+    },
+    {
+        id: 50,
+        name: "diglett",
+        image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/50.png",
+        life: 10,
+        attack: 55,
+        defense: 25,
+        speed: 95,
+        height: 2,
+        weight: 8,
+        types: ["ground"],
+    },
 ];
 
 const Home = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pokemonsPerPage, setPokemonsPerPage] = useState(12);
+
+    const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+    }
+
+    const handlePageChange = (event) => {
+        setCurrentPage(Number(event.target.id));
+    };
+
+    const paginatedPokemons = pokemons.slice(
+        (currentPage - 1) * pokemonsPerPage,
+        currentPage * pokemonsPerPage
+    );
+
     return (
         <>
             <div className={styles.navBar}>
-                <div className={styles.selectContainer}>
+                <div className={styles.filterContainer}>
                     <span>Filters:</span>
                     <select>
                         <option selected>All types</option>
@@ -293,7 +647,19 @@ const Home = () => {
                         <option value="PokeAPI">PokeAPI</option>
                     </select>
                 </div>
-                <div className={styles.selectContainer}>
+                <div className={styles.pagesContainer}>
+                    {pages.map((page) => (
+                        <button
+                            id={page}
+                            key={page}
+                            onClick={handlePageChange}
+                            disabled={page === currentPage}
+                        >
+                            {page}
+                        </button>
+                    ))}
+                </div>
+                <div className={styles.sortContainer}>
                     <span>Sort: </span>
                     <select>
                         <option value="alphabeticalAsc">
@@ -308,7 +674,7 @@ const Home = () => {
                 </div>
             </div>
             <div className={styles.cardsContainer}>
-                {pokemons.map((pokemon) => (
+                {paginatedPokemons.map((pokemon) => (
                     <div key={pokemon.id}>
                         <Card pokemon={pokemon} />
                     </div>
