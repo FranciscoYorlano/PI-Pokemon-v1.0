@@ -127,9 +127,9 @@ const createNewPokemon = async (pokemon) => {
         throw new Error("Pokemon image url is required.");
     }
 
-    if (name.length > 40) {
+    if (name.length > 20) {
         throw new Error(
-            "Pokemon name should not be longer than 40 characters."
+            "Pokemon name should not be longer than 20 characters."
         );
     }
 
