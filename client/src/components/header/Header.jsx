@@ -13,7 +13,7 @@ const Header = () => {
         <div className={styles.container}>
             <div className={styles.logo}>
                 <Link to="/">
-                    <img src={logo} alt="logo" />
+                    <img src={logo} alt="Pokemon App" />
                 </Link>
             </div>
             <div className={styles.navLinks}>

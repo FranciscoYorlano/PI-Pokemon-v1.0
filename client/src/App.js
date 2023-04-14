@@ -1,5 +1,5 @@
 // ======================== React Router
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 // ======================== Components
 import Footer from "./components/footer/Footer";
@@ -16,7 +16,8 @@ import Landing from "./pages/landing/Landing";
 function App() {
     return (
         <>
-            <Header />
+            {useLocation().pathname !== "/" && <Header />}
+
             <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/home" element={<Home />} />

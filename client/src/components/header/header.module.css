@@ -56,17 +56,12 @@
 .button {
     padding: 0.5rem;
     border-radius: 0 0.8rem 0.8rem 0;
-    background-color: #00816f;
+    background: linear-gradient(to bottom right, #8a2be2, #4b0082);
+    color: #ffffff;
     border: none;
-    color: #f9a826;
-    font-weight: bold;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.button:hover {
-    background-color: #006571;
-    color: #f5dd0a;
+    font-weight: 500;
+    font-family: "Montserrat", sans-serif;
 }
 
 /* Dropdown */
