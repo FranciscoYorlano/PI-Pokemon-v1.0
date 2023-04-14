@@ -148,8 +148,8 @@ const createNewPokemon = async (pokemon) => {
         throw new Error("Pokemon stats must be greater than or equal to zero.");
     }
 
-    if (types.length === 0) {
-        throw new Error("Pokemon must be have at least one type.");
+    if (types.length > 5) {
+        throw new Error("Pokemon must not have more than 5 types.");
     }
 
     const typesCreated = await Type.findAll();
