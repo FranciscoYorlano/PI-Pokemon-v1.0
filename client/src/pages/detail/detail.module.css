@@ -1,5 +1,6 @@
 .detailContainer {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     height: calc(100vh - 60px);
@@ -147,6 +148,77 @@
 .typesLabel {
     font-size: 1rem;
     color: #006571;
+}
+
+@media only screen and (max-width: 480px) {
+    .detailContainer {
+        flex-direction: column;
+        height: auto;
+        padding-bottom: 2rem;
+    }
+
+    .leftContainer,
+    .rightContainer {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .rightContainer img {
+        width: 100%;
+        height: auto;
+    }
+
+    .name {
+        font-size: 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .colStats {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0;
+        font-size: 0.8rem;
+    }
+
+    .progressBar {
+        width: 85%;
+        height: 1.1rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .label {
+        width: 15%;
+        font-size: 0.8rem;
+    }
+
+    .progressValue,
+    .progressValueBlack {
+        font-size: 0.8rem;
+    }
+
+    .rowStats {
+        gap: 0.5rem;
+    }
+
+    .colStats {
+        font-size: 0.8rem;
+    }
+
+    .types {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .type {
+        font-size: 1rem;
+        padding: 0.3rem 0.5rem;
+    }
+
+    .typesLabel {
+        margin-top: 1rem;
+    }
 }
 
 /* Types backgrounds */
