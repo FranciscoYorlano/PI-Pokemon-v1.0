@@ -171,7 +171,7 @@ const Create = () => {
             <div className={styles.formContainer}>
                 <form onSubmit={submitHandler}>
                     <div className={styles.row}>
-                        <div className={styles.text}>
+                        <div className={styles.textInput}>
                             <label htmlFor="name">Name:</label>
                             <input
                                 className={`${styles.input} ${
@@ -188,7 +188,7 @@ const Create = () => {
                                 {errors.name}
                             </span>
                         </div>
-                        <div className={styles.text}>
+                        <div className={styles.textInput}>
                             <label htmlFor="image">Image Link:</label>
                             <input
                                 className={`${styles.input} ${
