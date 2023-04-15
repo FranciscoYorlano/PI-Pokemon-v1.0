@@ -7,14 +7,14 @@ import { Link } from "react-router-dom";
 
 const Landing = () => {
     return (
-        <div className={styles.landingContainer}>
+        <div className={styles.notFoundContainer}>
             <div className={styles.textContainer}>
                 <h1 className={styles.title}>
                     Sorry, this page isn't available.
                 </h1>
                 <p className={styles.description}>
                     The link you followed may be broken, or the page may have
-                    been removed. Go back to our <Link to="/home">Home</Link>
+                    been removed. Go back to <Link to="/home">Home</Link>
                 </p>
                 <Link to="/home">
                     <button className={styles.button}>Home</button>
