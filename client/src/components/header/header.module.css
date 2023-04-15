@@ -16,9 +16,13 @@
     padding-left: 1rem;
 }
 
-.logo img {
+.landingImg {
     height: 3rem;
     width: auto;
+}
+
+.homeImg {
+    display: none;
 }
 
 .navLinks {
@@ -26,6 +30,9 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+.navShortLinks {
+    display: none;
 }
 
 .navLinks a {
@@ -68,8 +75,34 @@
     font-family: "Montserrat", sans-serif;
 }
 
-/* Dropdown */
-@media (max-width: 768px) {
+@media only screen and (max-width: 480px) {
+    /* Cambio columnas y altura */
+    .container {
+        grid-template-columns: 4rem 5rem 1fr; /* Rev*/
+        grid-template-rows: 40px;
+        height: 40px;
+    }
+
+    /* Cambio imagen con link */
+    .homeImg {
+        display: block;
+        height: 2rem;
+        width: auto;
+    }
+
+    .landingImg {
+        display: none;
+    }
+
+    /* Ocultamiento link home*/
+    .linkHome {
+        display: none;
+    }
+
+    .search {
+        justify-self: end;
+    }
+
     .input {
         width: 10rem;
     }

@@ -13,17 +13,31 @@ const Header = () => {
         <div className={styles.container}>
             <div className={styles.logo}>
                 <Link to="/">
-                    <img src={logo} alt="Pokemon App" />
+                    <img
+                        src={logo}
+                        alt="Pokemon App"
+                        className={styles.landingImg}
+                    />
+                </Link>
+                <Link to="/home">
+                    <img
+                        src={logo}
+                        alt="Pokemon App"
+                        className={styles.homeImg}
+                    />
                 </Link>
             </div>
             <div className={styles.navLinks}>
-                <Link to="/home">Home</Link>
+                <Link to="/home" className={styles.linkHome}>
+                    Home
+                </Link>
                 <Link to="/create">Create</Link>
             </div>
+
             <div className={styles.search}>
                 <input
                     type="text"
-                    placeholder="Pokemon name or id"
+                    placeholder="Search"
                     className={styles.input}
                     name="search"
                 />
