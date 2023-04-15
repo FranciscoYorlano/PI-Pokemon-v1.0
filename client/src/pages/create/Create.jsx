@@ -213,7 +213,7 @@ const Create = () => {
                             <input
                                 className={`${styles.input} ${
                                     errors.life && styles.error
-                                }`}
+                                } ${styles.statInput}`}
                                 type="number"
                                 id="life"
                                 name="life"
@@ -229,7 +229,7 @@ const Create = () => {
                             <input
                                 className={`${styles.input} ${
                                     errors.attack && styles.error
-                                }`}
+                                } ${styles.statInput}`}
                                 type="number"
                                 id="attack"
                                 name="attack"
@@ -245,7 +245,7 @@ const Create = () => {
                             <input
                                 className={`${styles.input} ${
                                     errors.defense && styles.error
-                                }`}
+                                } ${styles.statInput}`}
                                 type="number"
                                 id="defense"
                                 name="defense"
@@ -264,7 +264,7 @@ const Create = () => {
                             <input
                                 className={`${styles.input} ${
                                     errors.speed && styles.error
-                                }`}
+                                } ${styles.statInput}`}
                                 type="number"
                                 id="speed"
                                 name="speed"
@@ -280,7 +280,7 @@ const Create = () => {
                             <input
                                 className={`${styles.input} ${
                                     errors.height && styles.error
-                                }`}
+                                } ${styles.statInput}`}
                                 type="number"
                                 id="height"
                                 name="height"
@@ -296,7 +296,7 @@ const Create = () => {
                             <input
                                 className={`${styles.input} ${
                                     errors.weight && styles.error
-                                }`}
+                                } ${styles.statInput}`}
                                 type="number"
                                 id="weight"
                                 name="weight"
