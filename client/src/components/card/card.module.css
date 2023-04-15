@@ -5,12 +5,12 @@
     color: #ffffff;
     border-radius: 0.8rem;
     overflow: hidden;
-    width: 15rem;
+    width: 20rem;
 }
 
 @media only screen and (max-width: 480px) {
     .card {
-        width: 20rem;
+        width: 24rem;
     }
 }
 

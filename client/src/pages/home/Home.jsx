@@ -654,6 +654,7 @@ const Home = () => {
                             key={page}
                             onClick={handlePageChange}
                             disabled={page === currentPage}
+                            className={styles.button}
                         >
                             {page}
                         </button>
@@ -679,6 +680,21 @@ const Home = () => {
                         <Card pokemon={pokemon} />
                     </div>
                 ))}
+            </div>
+            <div className={styles.navBarMobile}>
+                <div className={styles.pagesContainerMobile}>
+                    {pages.map((page) => (
+                        <button
+                            id={page}
+                            key={page}
+                            onClick={handlePageChange}
+                            className={styles.button}
+                            disabled={page === currentPage}
+                        >
+                            {page}
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );
