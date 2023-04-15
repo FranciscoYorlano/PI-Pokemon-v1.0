@@ -630,7 +630,7 @@ const Home = () => {
     );
 
     return (
-        <>
+        <div className={styles.homeContainer}>
             <div className={styles.navBar}>
                 <div className={styles.filterContainer}>
                     <span>Filters:</span>
@@ -680,7 +680,7 @@ const Home = () => {
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 };
 

@@ -1,3 +1,8 @@
+.homeContainer {
+    min-height: calc(100vh - 60px);
+    width: 100%;
+}
+
 .cardsContainer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
