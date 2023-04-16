@@ -6,90 +6,12 @@ import pikachu from "../../assets/pikachu.png";
 import validateCreate from "../../functions/validateCreate";
 
 // ======================== Hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const allTypes = [
-    {
-        id: 1,
-        name: "normal",
-    },
-    {
-        id: 2,
-        name: "fighting",
-    },
-    {
-        id: 3,
-        name: "flying",
-    },
-    {
-        id: 4,
-        name: "poison",
-    },
-    {
-        id: 5,
-        name: "ground",
-    },
-    {
-        id: 6,
-        name: "rock",
-    },
-    {
-        id: 7,
-        name: "bug",
-    },
-    {
-        id: 8,
-        name: "ghost",
-    },
-    {
-        id: 9,
-        name: "steel",
-    },
-    {
-        id: 10,
-        name: "fire",
-    },
-    {
-        id: 11,
-        name: "water",
-    },
-    {
-        id: 12,
-        name: "grass",
-    },
-    {
-        id: 13,
-        name: "electric",
-    },
-    {
-        id: 14,
-        name: "psychic",
-    },
-    {
-        id: 15,
-        name: "ice",
-    },
-    {
-        id: 16,
-        name: "dragon",
-    },
-    {
-        id: 17,
-        name: "dark",
-    },
-    {
-        id: 18,
-        name: "fairy",
-    },
-    {
-        id: 19,
-        name: "unknown",
-    },
-    {
-        id: 20,
-        name: "shadow",
-    },
-];
+// ======================== Redux
+import { useDispatch, useSelector } from "react-redux";
+
+import { getAllTypes } from "../../redux/actions";
 
 const Create = () => {
     const [newPokemon, setNewPokemon] = useState({
@@ -114,6 +36,14 @@ const Create = () => {
         weight: "",
         types: "",
     });
+
+    // Get all Types
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getAllTypes());
+    }, []);
+
+    const allTypes = useSelector((state) => state.types);
 
     const handleChange = (event) => {
         const property = event.target.name;
@@ -308,22 +238,34 @@ const Create = () => {
                             </span>
                         </div>
                     </div>
-                    <div className={styles.typesSelectors}>
-                        {allTypes.map((type) => (
-                            <div className={styles.typeSelector} key={type.id}>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        id={type.id}
-                                        value={type.id}
-                                        name={type.name}
-                                        onChange={handleCheckboxSelection}
-                                    />
-                                    {type.name}
-                                </label>
-                            </div>
-                        ))}
-                    </div>
+                    {allTypes.length ? (
+                        <div className={styles.typesSelectors}>
+                            {allTypes.length &&
+                                allTypes.map((type) => (
+                                    <div
+                                        className={styles.typeSelector}
+                                        key={type.id}
+                                    >
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                id={type.id}
+                                                value={type.id}
+                                                name={type.name}
+                                                onChange={
+                                                    handleCheckboxSelection
+                                                }
+                                            />
+                                            {type.name}
+                                        </label>
+                                    </div>
+                                ))}
+                        </div>
+                    ) : (
+                        <div className={styles.loadingContainer}>
+                            <span class={styles.loader}></span>
+                        </div>
+                    )}
                     <span className={styles.spanError}>{errors.types}</span>
 
                     <button

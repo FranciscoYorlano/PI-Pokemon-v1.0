@@ -34,4 +34,10 @@ export const removePokemonDetail = () => {
     };
 };
 
-export const getAllTypes = () => {};
+export const getAllTypes = () => {
+    return async (dispatch) => {
+        const response = await axios.get(`${BACKEND_URL}/types`);
+        const types = response.data;
+        dispatch({ type: GET_ALL_TYPES, payload: types });
+    };
+};

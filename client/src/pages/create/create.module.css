@@ -98,6 +98,35 @@
     width: 7rem;
 }
 
+.loadingContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    width: 100%;
+}
+
+.loader {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #006571;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .buttonSubmit {
     background: linear-gradient(to bottom right, #8a2be2, #4b0082);
     color: #ffffff;
