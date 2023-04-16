@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 // ======================== Redux
 import { useDispatch, useSelector } from "react-redux";
 
-import { getPokemonDetail } from "../../redux/actions";
+import { getPokemonDetail, removePokemonDetail } from "../../redux/actions";
 
 const Detail = () => {
     const { id } = useParams();
@@ -17,7 +17,10 @@ const Detail = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getPokemonDetail(id));
-    }, []);
+        return () => {
+            dispatch(removePokemonDetail());
+        };
+    }, [dispatch, id]);
 
     const pokemon = useSelector((state) => state.pokemonDetail);
 
