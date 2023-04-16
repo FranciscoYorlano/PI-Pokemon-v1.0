@@ -16,7 +16,6 @@ export const getAllPokemons = () => {
     return async (dispatch) => {
         const response = await axios.get(`${BACKEND_URL}/pokemons`);
         const pokemons = response.data;
-        console.log(pokemons);
         dispatch({ type: GET_ALL_POKEMONS, payload: pokemons });
     };
 };
