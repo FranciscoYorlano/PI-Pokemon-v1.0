@@ -8,21 +8,20 @@ import Card from "../../components/card/Card";
 import { useState, useEffect } from "react";
 
 // ======================== Redux
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 import { getAllPokemons } from "../../redux/actions";
 
-const Home = () => {
+const Home = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pokemonsPerPage, setPokemonsPerPage] = useState(12);
 
     // Get All Pokemons
-    const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getAllPokemons());
+        props.getAllPokemons();
     }, []);
 
-    const pokemons = useSelector((state) => state.pokemons);
+    const pokemons = props.pokemons;
 
     const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
     const pages = [];
@@ -116,4 +115,16 @@ const Home = () => {
     );
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+    return {
+        pokemons: state.pokemons,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAllPokemons: () => dispatch(getAllPokemons()),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

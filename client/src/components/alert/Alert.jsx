@@ -8,6 +8,9 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { removeGlobalError } from "../../redux/actions";
 
+// ======================== Link
+import { Link } from "react-router-dom";
+
 const Alert = (props) => {
     const { globalError, removeGlobalError } = props;
 

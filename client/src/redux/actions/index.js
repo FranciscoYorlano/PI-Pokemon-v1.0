@@ -8,6 +8,8 @@ export const SET_GLOBAL_ERROR = "SET_ERROR";
 export const REMOVE_GLOBAL_ERROR = "REMOVE_ERROR";
 
 export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
+export const GET_POKEMONS_BY_NAME = "GET_POKEMONS_BY_NAME";
+export const RESET_POKEMONS = "RESET_POKEMONS";
 
 export const GET_POKEMON_DETAIL = "GET_POKEMON_DETAIL";
 export const REMOVE_POKEMON_DETAIL = "REMOVE_POKEMON_DETAIL";
@@ -39,6 +41,29 @@ export const getAllPokemons = () => {
         } catch (error) {
             dispatch({ type: SET_GLOBAL_ERROR, payload: error.message });
         }
+    };
+};
+
+export const getPokemonsByName = (name) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get(
+                `${BACKEND_URL}/pokemons?name=${name}`
+            );
+            const pokemons = response.data;
+            dispatch({ type: GET_POKEMONS_BY_NAME, payload: pokemons });
+        } catch (error) {
+            dispatch({
+                type: SET_GLOBAL_ERROR,
+                payload: `Pokemon "${name}" does not exist.`,
+            });
+        }
+    };
+};
+
+export const resetPokemons = () => {
+    return {
+        type: RESET_POKEMONS,
     };
 };
 

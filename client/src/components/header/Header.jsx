@@ -8,7 +8,27 @@ import { Link } from "react-router-dom";
 // ======================== Hooks
 import { useState } from "react";
 
+// ======================== React Redux
+import { useDispatch } from "react-redux";
+import { getAllPokemons, getPokemonsByName } from "../../redux/actions";
+
 const Header = () => {
+    const [name, setName] = useState("");
+
+    const handleInputChange = (event) => {
+        setName(event.target.value);
+    };
+
+    const dispatch = useDispatch();
+    const handleSearchsubmit = (event) => {
+        event.preventDefault();
+        if (name !== "") {
+            dispatch(getPokemonsByName(name));
+        } else {
+            dispatch(getAllPokemons());
+        }
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.logo}>
@@ -34,15 +54,19 @@ const Header = () => {
                 <Link to="/create">Create</Link>
             </div>
 
-            <div className={styles.search}>
+            <form className={styles.search} onSubmit={handleSearchsubmit}>
                 <input
                     type="text"
                     placeholder="Search"
                     className={styles.input}
                     name="search"
+                    value={name}
+                    onChange={handleInputChange}
                 />
-                <button className={styles.button}>Search</button>
-            </div>
+                <button type="submit" className={styles.button}>
+                    Search
+                </button>
+            </form>
         </div>
     );
 };
