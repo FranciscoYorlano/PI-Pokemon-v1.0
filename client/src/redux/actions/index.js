@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // ======================== Env
-const BACKEND_URL = "http://localhost:3001";
+const BACKEND_URL = "http://192.168.0.157:3001";
 
 // ======================== Action Types
 export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
@@ -16,6 +16,7 @@ export const getAllPokemons = () => {
     return async (dispatch) => {
         const response = await axios.get(`${BACKEND_URL}/pokemons`);
         const pokemons = response.data;
+        console.log(pokemons);
         dispatch({ type: GET_ALL_POKEMONS, payload: pokemons });
     };
 };

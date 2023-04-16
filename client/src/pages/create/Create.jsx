@@ -41,7 +41,7 @@ const Create = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getAllTypes());
-    }, []);
+    }, [dispatch]);
 
     const allTypes = useSelector((state) => state.types);
 

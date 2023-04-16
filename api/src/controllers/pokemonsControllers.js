@@ -55,14 +55,13 @@ const getAllPokemons = async () => {
     const dbPokemons = query.map((q) => dbPokemonTemplateCreator(q));
 
     // PokeApi pokemons
-    const data = await axios.get(`${EXT_API_URL}/pokemon?limit=100`);
+    const data = await axios.get(`${EXT_API_URL}/pokemon?limit=50`);
     const results = data.data.results;
     const apiPromises = results.map((r) => axios(r.url));
     const apiResponses = await Promise.all(apiPromises);
     const apiPokemons = apiResponses.map((r) => {
         return apiPokemonTemplateCreator(r.data);
     });
-
     return [...dbPokemons, ...apiPokemons];
 };
 
