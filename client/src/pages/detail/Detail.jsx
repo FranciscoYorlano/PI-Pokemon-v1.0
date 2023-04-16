@@ -137,13 +137,13 @@ const Detail = () => {
                             <div className={styles.colStats}>
                                 Height:{" "}
                                 {pokemon.height
-                                    ? `${pokemon.height}dm`
+                                    ? `${pokemon.height / 10} m`
                                     : "UNKNOWN"}
                             </div>
                             <div className={styles.colStats}>
                                 Weight:{" "}
                                 {pokemon.weight
-                                    ? `${pokemon.weight}hg`
+                                    ? `${pokemon.weight / 10}Kg`
                                     : "UNKNOWN"}
                             </div>
                         </div>

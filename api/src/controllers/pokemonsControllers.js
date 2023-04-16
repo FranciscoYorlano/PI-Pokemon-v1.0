@@ -10,6 +10,7 @@ const REGEX_URL =
 
 // Models
 const { Pokemon, Type, PokemonsTypes } = require("../db");
+const { Op } = require("sequelize");
 
 // ======================== Pokemons templates creators
 
@@ -84,8 +85,9 @@ const getAllPokemons = async () => {
 };
 
 const getPokemonsByName = async (name) => {
+    console.log(name);
     const pokemonsDb = await Pokemon.findAll({
-        where: { name: name.toLowerCase() },
+        where: { name: { [Op.iLike]: `%${name}%` } },
         include: Type,
     });
 

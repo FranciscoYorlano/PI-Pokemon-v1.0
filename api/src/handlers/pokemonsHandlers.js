@@ -8,26 +8,27 @@ const {
 
 // ======================== Handlers
 
-const getAllPokemonsHandler = async (req, res) => {
-    // -> array de pokemons (id, name, types)
-
-    try {
-        const pokemons = await getAllPokemons();
-        res.status(200).json(pokemons);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-};
-
-const getPokemonsByNameHandler = async (req, res) => {
-    // -> array de pokemons con name = name. Case insensitive
+const getPokemonsHandler = async (req, res) => {
     const { name } = req.query;
 
-    try {
-        const pokemons = await getPokemonsByName(name);
-        res.status(200).json(pokemons);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
+    if (name) {
+        // -> array de pokemons con name = name. Case insensitive
+
+        try {
+            const pokemons = await getPokemonsByName(name);
+            res.status(200).json(pokemons);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    } else {
+        // -> array de pokemons (id, name, image, types)
+
+        try {
+            const pokemons = await getAllPokemons();
+            res.status(200).json(pokemons);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
     }
 };
 
@@ -58,8 +59,7 @@ const createNewPokemonHandler = async (req, res) => {
 };
 
 module.exports = {
-    getAllPokemonsHandler,
-    getPokemonsByNameHandler,
+    getPokemonsHandler,
     getPokemonByIdHandler,
     createNewPokemonHandler,
 };
