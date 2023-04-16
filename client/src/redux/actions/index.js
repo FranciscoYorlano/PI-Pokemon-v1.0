@@ -4,7 +4,8 @@ import axios from "axios";
 const BACKEND_URL = "http://192.168.0.157:3001";
 
 // ======================== Action Types
-export const SET_ERROR = "SET_ERROR";
+export const SET_GLOBAL_ERROR = "SET_ERROR";
+export const REMOVE_GLOBAL_ERROR = "REMOVE_ERROR";
 
 export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
 
@@ -16,6 +17,19 @@ export const GET_ALL_TYPES = "GET_ALL_TYPES";
 export const CREATE_POKEMON = "CREATE_POKEMON";
 
 // ======================== Action Creators
+export const setGlobalError = (error) => {
+    return {
+        type: SET_GLOBAL_ERROR,
+        payload: error,
+    };
+};
+
+export const removeGlobalError = () => {
+    return {
+        type: REMOVE_GLOBAL_ERROR,
+    };
+};
+
 export const getAllPokemons = () => {
     return async (dispatch) => {
         const response = await axios.get(`${BACKEND_URL}/pokemons`);
@@ -58,7 +72,7 @@ export const createPokemon = (newPokemon) => {
                 payload: response.data,
             });
         } catch (error) {
-            dispatch({ type: SET_ERROR });
+            dispatch({ type: SET_GLOBAL_ERROR, payload: error.message });
         }
     };
 };

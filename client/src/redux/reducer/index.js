@@ -1,5 +1,7 @@
 // ======================== Action Types
 import {
+    SET_GLOBAL_ERROR,
+    REMOVE_GLOBAL_ERROR,
     GET_ALL_POKEMONS,
     GET_POKEMON_DETAIL,
     REMOVE_POKEMON_DETAIL,
@@ -16,6 +18,10 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_GLOBAL_ERROR:
+            return { ...state, globalError: action.payload };
+        case REMOVE_GLOBAL_ERROR:
+            return { ...state, globalError: "" };
         case GET_ALL_POKEMONS:
             return { ...state, pokemons: action.payload };
         case GET_POKEMON_DETAIL:

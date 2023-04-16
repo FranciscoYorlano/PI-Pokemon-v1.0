@@ -53,7 +53,6 @@ const createNewPokemonHandler = async (req, res) => {
         const response = await createNewPokemon(pokemon);
         res.status(201).json(response);
     } catch (error) {
-        console.log(error.message);
         res.status(400).json({ error: error.message });
     }
 };

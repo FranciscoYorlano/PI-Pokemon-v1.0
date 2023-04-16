@@ -323,7 +323,7 @@ const Create = () => {
                 <div className={styles.info}>
                     <h2>
                         {newPokemon.name.length && !errors.name
-                            ? newPokemon.name
+                            ? newPokemon.name.replace(/\s(?=\w)/g, "")
                             : "Your pokemon"}
                     </h2>
                 </div>

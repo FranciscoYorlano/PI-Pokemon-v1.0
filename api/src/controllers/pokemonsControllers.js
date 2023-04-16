@@ -85,7 +85,6 @@ const getAllPokemons = async () => {
 };
 
 const getPokemonsByName = async (name) => {
-    console.log(name);
     const pokemonsDb = await Pokemon.findAll({
         where: { name: { [Op.iLike]: `%${name}%` } },
         include: Type,
@@ -179,7 +178,10 @@ const createNewPokemon = async (pokemon) => {
     }
 
     // Creción de Pokemon
-    const newPokemon = await Pokemon.create(pokemon);
+    const newPokemon = await Pokemon.create({
+        ...pokemon,
+        name: pokemon.name.replace(/\s(?=\w)/g, ""),
+    });
 
     for (let i = 0; i < types.length; i++) {
         await PokemonsTypes.create({
