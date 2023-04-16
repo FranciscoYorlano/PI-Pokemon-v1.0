@@ -30,6 +30,15 @@ const apiPokemonTemplateCreator = (pokemon) => {
     };
 };
 
+const minifiedPokemonTemplateCreator = (pokemon) => {
+    return {
+        id: pokemon.id,
+        name: pokemon.name,
+        image: pokemon.image,
+        types: pokemon.types,
+    };
+};
+
 const dbPokemonTemplateCreator = (pokemon) => {
     const types = pokemon.Types.map((t) => t.name);
 
@@ -50,7 +59,7 @@ const dbPokemonTemplateCreator = (pokemon) => {
 // ======================== Pokemons Controllers
 
 const getAllPokemons = async () => {
-    // DB First pokemons
+    // DB pokemons
     const query = await Pokemon.findAll({ include: Type });
     const dbPokemons = query.map((q) => dbPokemonTemplateCreator(q));
 
@@ -62,7 +71,16 @@ const getAllPokemons = async () => {
     const apiPokemons = apiResponses.map((r) => {
         return apiPokemonTemplateCreator(r.data);
     });
-    return [...dbPokemons, ...apiPokemons];
+
+    const dbPokemonsMin = dbPokemons.map((p) =>
+        minifiedPokemonTemplateCreator(p)
+    );
+
+    const apiPokemonsMin = apiPokemons.map((p) =>
+        minifiedPokemonTemplateCreator(p)
+    );
+
+    return [...dbPokemonsMin, ...apiPokemonsMin];
 };
 
 const getPokemonsByName = async (name) => {
