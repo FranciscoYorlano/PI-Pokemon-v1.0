@@ -7,11 +7,12 @@ import validateCreate from "../../functions/validateCreate";
 
 // ======================== Hooks
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // ======================== Redux
 import { useDispatch, useSelector } from "react-redux";
 
-import { getAllTypes } from "../../redux/actions";
+import { getAllTypes, createPokemon } from "../../redux/actions";
 
 const Create = () => {
     const [newPokemon, setNewPokemon] = useState({
@@ -87,9 +88,36 @@ const Create = () => {
         }
     };
 
-    const submitHandler = (event) => {
+    const navigate = useNavigate();
+    const submitHandler = async (event) => {
         event.preventDefault();
-        alert(newPokemon);
+
+        if (!buttonDisabled) {
+            const pokemonToCreate = {
+                ...newPokemon,
+                types: newPokemon.types.map((type) => Number(type.id)),
+                life: Number(newPokemon.life),
+                attack: Number(newPokemon.attack),
+                defense: Number(newPokemon.defense),
+                speed: Number(newPokemon.speed),
+                height: Number(newPokemon.height),
+                weight: Number(newPokemon.weight),
+            };
+
+            await dispatch(createPokemon(pokemonToCreate));
+            setNewPokemon({
+                name: "",
+                image: "",
+                life: 0,
+                attack: 0,
+                defense: 0,
+                speed: 0,
+                height: 0,
+                weight: 0,
+                types: [],
+            });
+            navigate("/home");
+        }
     };
 
     const buttonDisabled =

@@ -4,6 +4,7 @@ import {
     GET_POKEMON_DETAIL,
     REMOVE_POKEMON_DETAIL,
     GET_ALL_TYPES,
+    CREATE_POKEMON,
 } from "../actions";
 
 const initialState = {
@@ -23,6 +24,8 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, pokemonDetail: {} };
         case GET_ALL_TYPES:
             return { ...state, types: action.payload };
+        case CREATE_POKEMON:
+            return { ...state };
         default:
             return { ...state };
     }

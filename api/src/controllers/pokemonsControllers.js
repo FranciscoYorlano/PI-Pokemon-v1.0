@@ -153,6 +153,7 @@ const createNewPokemon = async (pokemon) => {
 
     const typesCreated = await Type.findAll();
     const typeIdsCreated = typesCreated.map((type) => type.id);
+
     if (!types.every((t) => typeIdsCreated.includes(t))) {
         throw new Error("Pokemon types must be exist.");
     }

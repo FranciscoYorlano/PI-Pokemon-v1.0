@@ -4,12 +4,16 @@ import axios from "axios";
 const BACKEND_URL = "http://192.168.0.157:3001";
 
 // ======================== Action Types
+export const SET_ERROR = "SET_ERROR";
+
 export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
 
 export const GET_POKEMON_DETAIL = "GET_POKEMON_DETAIL";
 export const REMOVE_POKEMON_DETAIL = "REMOVE_POKEMON_DETAIL";
 
 export const GET_ALL_TYPES = "GET_ALL_TYPES";
+
+export const CREATE_POKEMON = "CREATE_POKEMON";
 
 // ======================== Action Creators
 export const getAllPokemons = () => {
@@ -39,5 +43,22 @@ export const getAllTypes = () => {
         const response = await axios.get(`${BACKEND_URL}/types`);
         const types = response.data;
         dispatch({ type: GET_ALL_TYPES, payload: types });
+    };
+};
+
+export const createPokemon = (newPokemon) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.post(
+                `${BACKEND_URL}/pokemons`,
+                newPokemon
+            );
+            dispatch({
+                type: CREATE_POKEMON,
+                payload: response.data,
+            });
+        } catch (error) {
+            dispatch({ type: SET_ERROR });
+        }
     };
 };
