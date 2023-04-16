@@ -32,17 +32,25 @@ export const removeGlobalError = () => {
 
 export const getAllPokemons = () => {
     return async (dispatch) => {
-        const response = await axios.get(`${BACKEND_URL}/pokemons`);
-        const pokemons = response.data;
-        dispatch({ type: GET_ALL_POKEMONS, payload: pokemons });
+        try {
+            const response = await axios.get(`${BACKEND_URL}/pokemons`);
+            const pokemons = response.data;
+            dispatch({ type: GET_ALL_POKEMONS, payload: pokemons });
+        } catch (error) {
+            dispatch({ type: SET_GLOBAL_ERROR, payload: error.message });
+        }
     };
 };
 
 export const getPokemonDetail = (id) => {
     return async (dispatch) => {
-        const response = await axios.get(`${BACKEND_URL}/pokemons/${id}`);
-        const pokemon = response.data;
-        dispatch({ type: GET_POKEMON_DETAIL, payload: pokemon });
+        try {
+            const response = await axios.get(`${BACKEND_URL}/pokemons/${id}`);
+            const pokemon = response.data;
+            dispatch({ type: GET_POKEMON_DETAIL, payload: pokemon });
+        } catch (error) {
+            dispatch({ type: SET_GLOBAL_ERROR, payload: error.message });
+        }
     };
 };
 
@@ -54,9 +62,13 @@ export const removePokemonDetail = () => {
 
 export const getAllTypes = () => {
     return async (dispatch) => {
-        const response = await axios.get(`${BACKEND_URL}/types`);
-        const types = response.data;
-        dispatch({ type: GET_ALL_TYPES, payload: types });
+        try {
+            const response = await axios.get(`${BACKEND_URL}/types`);
+            const types = response.data;
+            dispatch({ type: GET_ALL_TYPES, payload: types });
+        } catch (error) {
+            dispatch({ type: SET_GLOBAL_ERROR, payload: error.message });
+        }
     };
 };
 
