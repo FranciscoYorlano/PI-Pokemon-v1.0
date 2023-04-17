@@ -89,7 +89,7 @@ const Create = () => {
     };
 
     const navigate = useNavigate();
-    const submitHandler = async (event) => {
+    const submitHandler = (event) => {
         event.preventDefault();
 
         if (!buttonDisabled) {
@@ -104,7 +104,7 @@ const Create = () => {
                 weight: Number(newPokemon.weight),
             };
 
-            await dispatch(createPokemon(pokemonToCreate));
+            dispatch(createPokemon(pokemonToCreate));
             setNewPokemon({
                 name: "",
                 image: "",

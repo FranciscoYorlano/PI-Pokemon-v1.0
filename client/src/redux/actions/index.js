@@ -73,6 +73,12 @@ export const getPokemonsByName = (name) => {
     };
 };
 
+export const setPokemons = () => {
+    return {
+        type: POKEMONS_SET,
+    };
+};
+
 export const filterPokemonsByType = (type) => {
     return {
         type: POKEMONS_FILTER_BY_TYPE,

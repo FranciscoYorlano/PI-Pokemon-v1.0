@@ -73,6 +73,7 @@ const rootReducer = (state = initialState, action) => {
                     ),
                 };
             }
+            break;
         case POKEMONS_ORDER:
             let orderedPokemons = [...state.pokemons];
 
@@ -93,7 +94,7 @@ const rootReducer = (state = initialState, action) => {
                 case "attackDesc":
                     orderedPokemons.sort((a, b) => b.attack - a.attack);
                     break;
-                case "default":
+                default:
                     break;
             }
             return { ...state, pokemons: orderedPokemons };

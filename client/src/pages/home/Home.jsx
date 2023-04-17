@@ -15,6 +15,7 @@ import {
     filterPokemonsByType,
     filterPokemonsBySource,
     orderPokemons,
+    setPokemons,
 } from "../../redux/actions";
 
 // ======================== Functions
@@ -70,10 +71,9 @@ const Home = (props) => {
     // Get All Pokemons
     useEffect(() => {
         props.getAllPokemons();
-    }, []);
+    }, [props]);
 
     const pokemons = props.pokemons;
-
     const types = getUniqueTypes(pokemons);
 
     // Paginated
@@ -95,7 +95,7 @@ const Home = (props) => {
     const handleFilterByType = (event) => {
         setFilterType(event.target.value);
         if (event.target.value === "allTypes") {
-            props.getAllPokemons();
+            props.setPokemons();
         }
         props.filterPokemonsByType(event.target.value);
     };
@@ -103,7 +103,7 @@ const Home = (props) => {
     const handleFilterBySource = (event) => {
         setFilterSource(event.target.value);
         if (event.target.value === "allSources") {
-            props.getAllPokemons();
+            props.setPokemons();
         }
         props.filterPokemonsBySource(event.target.value);
     };
@@ -111,7 +111,7 @@ const Home = (props) => {
     // Order
     const handleOrder = (event) => {
         if (event.target.value === "defaul") {
-            props.getAllPokemons();
+            props.setPokemons();
         }
         setOrder(event.target.value);
         props.orderPokemons(event.target.value);
@@ -213,6 +213,7 @@ const mapDispatchToProps = (dispatch) => {
         filterPokemonsBySource: (source) =>
             dispatch(filterPokemonsBySource(source)),
         orderPokemons: (order) => dispatch(orderPokemons(order)),
+        setPokemons: () => dispatch(setPokemons()),
     };
 };
 
