@@ -18,6 +18,9 @@ export const GET_ALL_TYPES = "GET_ALL_TYPES";
 
 export const CREATE_POKEMON = "CREATE_POKEMON";
 
+export const FILTER_POKEMONS_BY_TYPE = "FILTER_POKEMONS_BY_TYPE";
+export const FILTER_POKEMONS_BY_SOURCE = "FILTER_POKEMONS_BY_SOURCE";
+
 // ======================== Action Creators
 export const setGlobalError = (error) => {
     return {
@@ -111,5 +114,19 @@ export const createPokemon = (newPokemon) => {
         } catch (error) {
             dispatch({ type: SET_GLOBAL_ERROR, payload: error.message });
         }
+    };
+};
+
+export const filterPokemonsByType = (type) => {
+    return {
+        type: FILTER_POKEMONS_BY_TYPE,
+        payload: type,
+    };
+};
+
+export const filterPokemonsBySource = (source) => {
+    return {
+        type: FILTER_POKEMONS_BY_SOURCE,
+        payload: source,
     };
 };

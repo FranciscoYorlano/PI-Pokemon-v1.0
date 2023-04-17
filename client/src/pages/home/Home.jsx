@@ -10,11 +10,60 @@ import { useState, useEffect } from "react";
 // ======================== Redux
 import { connect } from "react-redux";
 
-import { getAllPokemons } from "../../redux/actions";
+import {
+    getAllPokemons,
+    filterPokemonsByType,
+    filterPokemonsBySource,
+} from "../../redux/actions";
+
+// ======================== Functions
+const getUniqueTypes = (pokemons) => {
+    const typesForFilters = new Set();
+    pokemons.forEach((pokemon) => {
+        pokemon.types.forEach((type) => {
+            typesForFilters.add(type);
+        });
+    });
+    return typesForFilters;
+};
+
+// ======================== Components
+const SelectType = ({ type, pokemons }) => {
+    const count = pokemons.filter((pokemon) =>
+        pokemon.types.includes(type)
+    ).length;
+    const typeName = type[0].toUpperCase() + type.substring(1);
+    return (
+        <option value={type}>
+            {typeName} ({count})
+        </option>
+    );
+};
+
+const SelectSource = ({ pokemons }) => {
+    const dataBasePokemons = pokemons.filter(
+        (pokemon) => isNaN(pokemon.id) === true
+    ).length;
+    const pokeApiPokemons = pokemons.filter(
+        (pokemon) => isNaN(pokemon.id) === false
+    ).length;
+    return (
+        <>
+            <option key="0" value="dataBase">
+                Created ({dataBasePokemons})
+            </option>
+            <option key="1" value="pokeApi">
+                Originals ({pokeApiPokemons})
+            </option>
+        </>
+    );
+};
 
 const Home = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pokemonsPerPage, setPokemonsPerPage] = useState(12);
+    const [filterType, setFilterType] = useState("allTypes");
+    const [filterSource, setFilterSource] = useState("allSources");
 
     // Get All Pokemons
     useEffect(() => {
@@ -23,37 +72,61 @@ const Home = (props) => {
 
     const pokemons = props.pokemons;
 
+    const types = getUniqueTypes(pokemons);
+
+    // Paginated
     const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
     }
 
-    const handlePageChange = (event) => {
-        setCurrentPage(Number(event.target.id));
-    };
-
     const paginatedPokemons = pokemons.slice(
         (currentPage - 1) * pokemonsPerPage,
         currentPage * pokemonsPerPage
     );
+    const handlePageChange = (event) => {
+        setCurrentPage(Number(event.target.id));
+    };
+
+    // Filters
+    function handleFilterByType(event) {
+        setFilterType(event.target.value);
+        if (event.target.value === "allTypes") {
+            props.getAllPokemons();
+        }
+        props.filterPokemonsByType(event.target.value);
+    }
+
+    function handleFilterBySource(event) {
+        setFilterSource(event.target.value);
+        if (event.target.value === "allSources") {
+            props.getAllPokemons();
+        }
+        props.filterPokemonsBySource(event.target.value);
+    }
 
     return (
         <div className={styles.homeContainer}>
             <div className={styles.navBar}>
                 <div className={styles.filterContainer}>
                     <span>Filters:</span>
-                    <select>
-                        <option selected>All types</option>
-                        <option value="normal">normal Q</option>
-                        <option value="fighting">fighting</option>
-                        <option value="poison">poison</option>
-                        <option value="electric">electric</option>
+                    <select value={filterType} onChange={handleFilterByType}>
+                        <option value="allTypes">All types</option>
+                        {Array.from(types).map((type) => (
+                            <SelectType
+                                key={type}
+                                type={type}
+                                pokemons={pokemons}
+                            />
+                        ))}
                     </select>
-                    <select>
-                        <option selected>All sources</option>
-                        <option value="created">Created</option>
-                        <option value="PokeAPI">PokeAPI</option>
+                    <select
+                        value={filterSource}
+                        onChange={handleFilterBySource}
+                    >
+                        <option value="allSources">All sources</option>
+                        <SelectSource pokemons={pokemons} />
                     </select>
                 </div>
                 <div className={styles.pagesContainer}>
@@ -93,7 +166,7 @@ const Home = (props) => {
                 </div>
             ) : (
                 <div className={styles.loadingContainer}>
-                    <span class={styles.loader}></span>
+                    <span className={styles.loader}></span>
                 </div>
             )}
             <div className={styles.navBarMobile}>
@@ -124,6 +197,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getAllPokemons: () => dispatch(getAllPokemons()),
+        filterPokemonsByType: (type) => dispatch(filterPokemonsByType(type)),
+        filterPokemonsBySource: (source) =>
+            dispatch(filterPokemonsBySource(source)),
     };
 };
 

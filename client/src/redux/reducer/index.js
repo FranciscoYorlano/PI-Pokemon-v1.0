@@ -9,6 +9,8 @@ import {
     REMOVE_POKEMON_DETAIL,
     GET_ALL_TYPES,
     CREATE_POKEMON,
+    FILTER_POKEMONS_BY_TYPE,
+    FILTER_POKEMONS_BY_SOURCE,
 } from "../actions";
 
 // ======================== Initial State
@@ -42,6 +44,30 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, types: action.payload };
         case CREATE_POKEMON:
             return { ...state };
+        case FILTER_POKEMONS_BY_TYPE:
+            return {
+                ...state,
+                pokemons: state.pokemons.filter((p) =>
+                    p.types.includes(action.payload)
+                ),
+            };
+        case FILTER_POKEMONS_BY_SOURCE:
+            if (action.payload === "dataBase") {
+                return {
+                    ...state,
+                    pokemons: state.pokemons.filter(
+                        (p) => isNaN(p.id) === true
+                    ),
+                };
+            }
+            if (action.payload === "pokeApi") {
+                return {
+                    ...state,
+                    pokemons: state.pokemons.filter(
+                        (p) => isNaN(p.id) === false
+                    ),
+                };
+            }
         default:
             return { ...state };
     }
