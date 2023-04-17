@@ -46,7 +46,7 @@
 }
 
 .filterContainer {
-    justify-content: start;
+    justify-content: flex-start;
     display: flex;
     align-items: center;
     padding-left: 1.5rem;
