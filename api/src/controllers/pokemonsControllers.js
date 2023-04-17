@@ -36,6 +36,7 @@ const minifiedPokemonTemplateCreator = (pokemon) => {
         id: pokemon.id,
         name: pokemon.name,
         image: pokemon.image,
+        attack: pokemon.attack,
         types: pokemon.types,
     };
 };
@@ -65,7 +66,7 @@ const getAllPokemons = async () => {
     const dbPokemons = query.map((q) => dbPokemonTemplateCreator(q));
 
     // PokeApi pokemons
-    const data = await axios.get(`${EXT_API_URL}/pokemon?limit=50`);
+    const data = await axios.get(`${EXT_API_URL}/pokemon?limit=100`);
     const results = data.data.results;
     const apiPromises = results.map((r) => axios(r.url));
     const apiResponses = await Promise.all(apiPromises);

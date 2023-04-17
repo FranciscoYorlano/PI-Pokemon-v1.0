@@ -11,6 +11,7 @@ import {
     CREATE_POKEMON,
     FILTER_POKEMONS_BY_TYPE,
     FILTER_POKEMONS_BY_SOURCE,
+    ORDER_POKEMONS,
 } from "../actions";
 
 // ======================== Initial State
@@ -68,6 +69,33 @@ const rootReducer = (state = initialState, action) => {
                     ),
                 };
             }
+        case ORDER_POKEMONS:
+        case ORDER_POKEMONS:
+            let orderedPokemons = [...state.pokemons];
+
+            switch (action.payload) {
+                case "alphabeticalAsc":
+                    orderedPokemons.sort((a, b) =>
+                        a.name.localeCompare(b.name)
+                    );
+                    break;
+                case "alphabeticalDesc":
+                    orderedPokemons.sort((a, b) =>
+                        b.name.localeCompare(a.name)
+                    );
+                    break;
+                case "attackAsc":
+                    orderedPokemons.sort((a, b) => a.attack - b.attack);
+                    break;
+                case "attackDesc":
+                    orderedPokemons.sort((a, b) => b.attack - a.attack);
+                    break;
+                default:
+                    break;
+            }
+
+            return { ...state, pokemons: orderedPokemons };
+
         default:
             return { ...state };
     }

@@ -14,6 +14,7 @@ import {
     getAllPokemons,
     filterPokemonsByType,
     filterPokemonsBySource,
+    orderPokemons,
 } from "../../redux/actions";
 
 // ======================== Functions
@@ -64,6 +65,7 @@ const Home = (props) => {
     const [pokemonsPerPage, setPokemonsPerPage] = useState(12);
     const [filterType, setFilterType] = useState("allTypes");
     const [filterSource, setFilterSource] = useState("allSources");
+    const [order, setOrder] = useState("default");
 
     // Get All Pokemons
     useEffect(() => {
@@ -90,21 +92,30 @@ const Home = (props) => {
     };
 
     // Filters
-    function handleFilterByType(event) {
+    const handleFilterByType = (event) => {
         setFilterType(event.target.value);
         if (event.target.value === "allTypes") {
             props.getAllPokemons();
         }
         props.filterPokemonsByType(event.target.value);
-    }
+    };
 
-    function handleFilterBySource(event) {
+    const handleFilterBySource = (event) => {
         setFilterSource(event.target.value);
         if (event.target.value === "allSources") {
             props.getAllPokemons();
         }
         props.filterPokemonsBySource(event.target.value);
-    }
+    };
+
+    // Order
+    const handleOrder = (event) => {
+        if (event.target.value === "defaul") {
+            props.getAllPokemons();
+        }
+        setOrder(event.target.value);
+        props.orderPokemons(event.target.value);
+    };
 
     return (
         <div className={styles.homeContainer}>
@@ -144,7 +155,8 @@ const Home = (props) => {
                 </div>
                 <div className={styles.sortContainer}>
                     <span>Sort: </span>
-                    <select>
+                    <select value={order} onChange={handleOrder}>
+                        <option value="defaul">Default</option>
                         <option value="alphabeticalAsc">
                             Alphabetical (A-Z)
                         </option>
@@ -200,6 +212,7 @@ const mapDispatchToProps = (dispatch) => {
         filterPokemonsByType: (type) => dispatch(filterPokemonsByType(type)),
         filterPokemonsBySource: (source) =>
             dispatch(filterPokemonsBySource(source)),
+        orderPokemons: (order) => dispatch(orderPokemons(order)),
     };
 };
 

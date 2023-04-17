@@ -20,6 +20,7 @@ export const CREATE_POKEMON = "CREATE_POKEMON";
 
 export const FILTER_POKEMONS_BY_TYPE = "FILTER_POKEMONS_BY_TYPE";
 export const FILTER_POKEMONS_BY_SOURCE = "FILTER_POKEMONS_BY_SOURCE";
+export const ORDER_POKEMONS = "ORDER_POKEMONS";
 
 // ======================== Action Creators
 export const setGlobalError = (error) => {
@@ -128,5 +129,12 @@ export const filterPokemonsBySource = (source) => {
     return {
         type: FILTER_POKEMONS_BY_SOURCE,
         payload: source,
+    };
+};
+
+export const orderPokemons = (order) => {
+    return {
+        type: ORDER_POKEMONS,
+        payload: order,
     };
 };
