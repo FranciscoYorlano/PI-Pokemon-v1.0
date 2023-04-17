@@ -66,7 +66,7 @@ const getAllPokemons = async () => {
     const dbPokemons = query.map((q) => dbPokemonTemplateCreator(q));
 
     // PokeApi pokemons
-    const data = await axios.get(`${EXT_API_URL}/pokemon?limit=100`);
+    const data = await axios.get(`${EXT_API_URL}/pokemon?limit=50`);
     const results = data.data.results;
     const apiPromises = results.map((r) => axios(r.url));
     const apiResponses = await Promise.all(apiPromises);
@@ -167,8 +167,8 @@ const createNewPokemon = async (pokemon) => {
         throw new Error("Pokemon stats must be greater than or equal to zero.");
     }
 
-    if (types.length > 5) {
-        throw new Error("Pokemon must not have more than 5 types.");
+    if (types.length > 3) {
+        throw new Error("Pokemon must not have more than 3 types.");
     }
 
     const typesCreated = await Type.findAll();

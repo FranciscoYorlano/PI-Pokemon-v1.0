@@ -57,8 +57,8 @@ const validateCreate = (newPokemon) => {
     if (weight && weight < 0)
         errors.weight = "Pokemon weight must be greater or equal to zero";
 
-    if (types.length > 5)
-        errors.types = "Pokemon must not have more than 5 types.";
+    if (types.length > 3)
+        errors.types = "Pokemon must not have more than 3 types.";
 
     return errors;
 };
