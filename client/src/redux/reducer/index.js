@@ -1,58 +1,62 @@
 // ======================== Action Types
 import {
-    SET_GLOBAL_ERROR,
-    REMOVE_GLOBAL_ERROR,
-    GET_ALL_POKEMONS,
-    GET_POKEMONS_BY_NAME,
-    RESET_POKEMONS,
-    GET_POKEMON_DETAIL,
-    REMOVE_POKEMON_DETAIL,
-    GET_ALL_TYPES,
+    GLOBAL_ERROR_SET,
+    GLOBAL_ERROR_REMOVE,
+    ALL_POKEMONS_GET,
+    POKEMONS_SET,
+    POKEMONS_FILTER_BY_TYPE,
+    POKEMONS_FILTER_BY_SOURCE,
+    POKEMONS_ORDER,
+    POKEMONS_REMOVE,
+    POKEMONS_BY_NAME_GET,
+    POKEMON_DETAIL_GET,
+    POKEMON_DETAIL_REMOVE,
+    TYPES_GET,
     CREATE_POKEMON,
-    FILTER_POKEMONS_BY_TYPE,
-    FILTER_POKEMONS_BY_SOURCE,
-    ORDER_POKEMONS,
 } from "../actions";
 
 // ======================== Initial State
 
 const initialState = {
-    pokemons: [], // SETTER, RESETER OK
-    pokemonDetail: {}, // SETTER, REMOVER OK
-    types: [], // SETTER OK
-    globalError: "", // SETTER, REMOVER OK
+    globalError: "",
+    allPokemons: [],
+    pokemons: [],
+    pokemonDetail: {},
+    types: [],
 };
 
 // ======================== Root Reducer
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_GLOBAL_ERROR:
+        // Global Error - SETTER, REMOVER
+        case GLOBAL_ERROR_SET:
             return { ...state, globalError: action.payload };
-        case REMOVE_GLOBAL_ERROR:
+        case GLOBAL_ERROR_REMOVE:
             return { ...state, globalError: "" };
-        case GET_ALL_POKEMONS:
-            return { ...state, pokemons: action.payload };
-        case GET_POKEMONS_BY_NAME:
-            return { ...state, pokemons: action.payload };
-        case RESET_POKEMONS:
-            return { ...state, pokemons: [] };
-        case GET_POKEMON_DETAIL:
-            return { ...state, pokemonDetail: action.payload };
-        case REMOVE_POKEMON_DETAIL:
-            return { ...state, pokemonDetail: {} };
-        case GET_ALL_TYPES:
-            return { ...state, types: action.payload };
-        case CREATE_POKEMON:
-            return { ...state };
-        case FILTER_POKEMONS_BY_TYPE:
+
+        // All pokemons - SETTER
+        case ALL_POKEMONS_GET:
+            return {
+                ...state,
+                allPokemons: action.payload,
+                pokemons: action.payload,
+            };
+
+        // Pokemons - SETTER, FILTER (2), ORDER, REMOVER, SETTER BY NAME
+        case POKEMONS_SET:
+            return {
+                ...state,
+                pokemons: state.allPokemons,
+            };
+        case POKEMONS_FILTER_BY_TYPE:
             return {
                 ...state,
                 pokemons: state.pokemons.filter((p) =>
                     p.types.includes(action.payload)
                 ),
             };
-        case FILTER_POKEMONS_BY_SOURCE:
+        case POKEMONS_FILTER_BY_SOURCE:
             if (action.payload === "dataBase") {
                 return {
                     ...state,
@@ -69,8 +73,7 @@ const rootReducer = (state = initialState, action) => {
                     ),
                 };
             }
-        case ORDER_POKEMONS:
-        case ORDER_POKEMONS:
+        case POKEMONS_ORDER:
             let orderedPokemons = [...state.pokemons];
 
             switch (action.payload) {
@@ -90,11 +93,28 @@ const rootReducer = (state = initialState, action) => {
                 case "attackDesc":
                     orderedPokemons.sort((a, b) => b.attack - a.attack);
                     break;
-                default:
+                case "default":
                     break;
             }
-
             return { ...state, pokemons: orderedPokemons };
+        case POKEMONS_REMOVE:
+            return { ...state, pokemons: [] };
+        case POKEMONS_BY_NAME_GET:
+            return { ...state, pokemons: action.payload };
+
+        // Pokemon Detail - SETTER, REMOVER
+        case POKEMON_DETAIL_GET:
+            return { ...state, pokemonDetail: action.payload };
+        case POKEMON_DETAIL_REMOVE:
+            return { ...state, pokemonDetail: {} };
+
+        // Types - SETTER
+        case TYPES_GET:
+            return { ...state, types: action.payload };
+
+        // Create Pokemon
+        case CREATE_POKEMON:
+            return { ...state };
 
         default:
             return { ...state };

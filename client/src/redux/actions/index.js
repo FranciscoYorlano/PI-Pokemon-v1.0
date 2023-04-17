@@ -4,35 +4,43 @@ import axios from "axios";
 const BACKEND_URL = "http://192.168.0.157:3001";
 
 // ======================== Action Types
-export const SET_GLOBAL_ERROR = "SET_ERROR";
-export const REMOVE_GLOBAL_ERROR = "REMOVE_ERROR";
 
-export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
-export const GET_POKEMONS_BY_NAME = "GET_POKEMONS_BY_NAME";
-export const RESET_POKEMONS = "RESET_POKEMONS";
+// Global Error - SETTER, REMOVER
+export const GLOBAL_ERROR_SET = "GLOBAL_ERROR_SET";
+export const GLOBAL_ERROR_REMOVE = "GLOBAL_ERROR_REMOVE";
 
-export const GET_POKEMON_DETAIL = "GET_POKEMON_DETAIL";
-export const REMOVE_POKEMON_DETAIL = "REMOVE_POKEMON_DETAIL";
+// All Pokemons - SETTER
+export const ALL_POKEMONS_GET = "GET_ALL_POKEMONS";
 
-export const GET_ALL_TYPES = "GET_ALL_TYPES";
+// Pokemons - SETTER, FILTER (2), ORDER, REMOVER, SETTER BY NAME
+export const POKEMONS_SET = "POKEMONS_SET";
+export const POKEMONS_FILTER_BY_TYPE = "POKEMONS_FILTER_BY_TYPE";
+export const POKEMONS_FILTER_BY_SOURCE = "POKEMONS_FILTER_BY_SOURCE";
+export const POKEMONS_ORDER = "POKEMONS_ORDER";
+export const POKEMONS_REMOVE = "POKEMONS_REMOVE";
+export const POKEMONS_BY_NAME_GET = "POKEMONS_GET_BY_NAME";
 
+// Pokemon Detail - SETTER, REMOVER
+export const POKEMON_DETAIL_GET = "POKEMON_DETAIL_GET";
+export const POKEMON_DETAIL_REMOVE = "POKEMON_DETAIL_REMOVE";
+
+// Types - SETTER
+export const TYPES_GET = "TYPES_GET";
+
+// Create Pokemon
 export const CREATE_POKEMON = "CREATE_POKEMON";
-
-export const FILTER_POKEMONS_BY_TYPE = "FILTER_POKEMONS_BY_TYPE";
-export const FILTER_POKEMONS_BY_SOURCE = "FILTER_POKEMONS_BY_SOURCE";
-export const ORDER_POKEMONS = "ORDER_POKEMONS";
 
 // ======================== Action Creators
 export const setGlobalError = (error) => {
     return {
-        type: SET_GLOBAL_ERROR,
+        type: GLOBAL_ERROR_SET,
         payload: error,
     };
 };
 
 export const removeGlobalError = () => {
     return {
-        type: REMOVE_GLOBAL_ERROR,
+        type: GLOBAL_ERROR_REMOVE,
     };
 };
 
@@ -41,9 +49,9 @@ export const getAllPokemons = () => {
         try {
             const response = await axios.get(`${BACKEND_URL}/pokemons`);
             const pokemons = response.data;
-            dispatch({ type: GET_ALL_POKEMONS, payload: pokemons });
+            dispatch({ type: ALL_POKEMONS_GET, payload: pokemons });
         } catch (error) {
-            dispatch({ type: SET_GLOBAL_ERROR, payload: error.message });
+            dispatch({ type: GLOBAL_ERROR_SET, payload: error.message });
         }
     };
 };
@@ -55,19 +63,40 @@ export const getPokemonsByName = (name) => {
                 `${BACKEND_URL}/pokemons?name=${name}`
             );
             const pokemons = response.data;
-            dispatch({ type: GET_POKEMONS_BY_NAME, payload: pokemons });
+            dispatch({ type: POKEMONS_BY_NAME_GET, payload: pokemons });
         } catch (error) {
             dispatch({
-                type: SET_GLOBAL_ERROR,
+                type: GLOBAL_ERROR_SET,
                 payload: `Pokemon "${name}" does not exist.`,
             });
         }
     };
 };
 
-export const resetPokemons = () => {
+export const filterPokemonsByType = (type) => {
     return {
-        type: RESET_POKEMONS,
+        type: POKEMONS_FILTER_BY_TYPE,
+        payload: type,
+    };
+};
+
+export const filterPokemonsBySource = (source) => {
+    return {
+        type: POKEMONS_FILTER_BY_SOURCE,
+        payload: source,
+    };
+};
+
+export const orderPokemons = (order) => {
+    return {
+        type: POKEMONS_ORDER,
+        payload: order,
+    };
+};
+
+export const removePokemons = () => {
+    return {
+        type: POKEMONS_REMOVE,
     };
 };
 
@@ -76,16 +105,16 @@ export const getPokemonDetail = (id) => {
         try {
             const response = await axios.get(`${BACKEND_URL}/pokemons/${id}`);
             const pokemon = response.data;
-            dispatch({ type: GET_POKEMON_DETAIL, payload: pokemon });
+            dispatch({ type: POKEMON_DETAIL_GET, payload: pokemon });
         } catch (error) {
-            dispatch({ type: SET_GLOBAL_ERROR, payload: error.message });
+            dispatch({ type: GLOBAL_ERROR_SET, payload: error.message });
         }
     };
 };
 
 export const removePokemonDetail = () => {
     return {
-        type: REMOVE_POKEMON_DETAIL,
+        type: POKEMON_DETAIL_REMOVE,
     };
 };
 
@@ -94,9 +123,9 @@ export const getAllTypes = () => {
         try {
             const response = await axios.get(`${BACKEND_URL}/types`);
             const types = response.data;
-            dispatch({ type: GET_ALL_TYPES, payload: types });
+            dispatch({ type: TYPES_GET, payload: types });
         } catch (error) {
-            dispatch({ type: SET_GLOBAL_ERROR, payload: error.message });
+            dispatch({ type: GLOBAL_ERROR_SET, payload: error.message });
         }
     };
 };
@@ -113,28 +142,7 @@ export const createPokemon = (newPokemon) => {
                 payload: response.data,
             });
         } catch (error) {
-            dispatch({ type: SET_GLOBAL_ERROR, payload: error.message });
+            dispatch({ type: GLOBAL_ERROR_SET, payload: error.message });
         }
-    };
-};
-
-export const filterPokemonsByType = (type) => {
-    return {
-        type: FILTER_POKEMONS_BY_TYPE,
-        payload: type,
-    };
-};
-
-export const filterPokemonsBySource = (source) => {
-    return {
-        type: FILTER_POKEMONS_BY_SOURCE,
-        payload: source,
-    };
-};
-
-export const orderPokemons = (order) => {
-    return {
-        type: ORDER_POKEMONS,
-        payload: order,
     };
 };
