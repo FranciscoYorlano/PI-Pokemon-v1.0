@@ -20,6 +20,11 @@ const initialState = {
     globalError: "",
     allPokemons: [],
     pokemons: [],
+    filtersValues: {
+        byType: "allTypes",
+        bySource: "allSources",
+    },
+    orderValue: "defaul",
     pokemonDetail: {},
     types: [],
 };
@@ -52,12 +57,23 @@ const rootReducer = (state = initialState, action) => {
                           p.types.includes(action.payload)
                       );
 
-            return { ...state, pokemons: filteredPokemonsByType };
+            return {
+                ...state,
+                pokemons: filteredPokemonsByType,
+                filtersValues: {
+                    ...state.filtersValues,
+                    byType: action.payload,
+                },
+            };
         case POKEMONS_FILTER_BY_SOURCE:
             if (action.payload === "allSources") {
                 return {
                     ...state,
                     pokemons: state.allPokemons,
+                    filtersValues: {
+                        ...state.filtersValues,
+                        bySource: action.payload,
+                    },
                 };
             }
 
@@ -74,14 +90,25 @@ const rootReducer = (state = initialState, action) => {
                 );
             }
 
-            return { ...state, pokemons: filteredPokemonsBySource };
+            return {
+                ...state,
+                pokemons: filteredPokemonsBySource,
+                filtersValues: {
+                    ...state.filtersValues,
+                    bySource: action.payload,
+                },
+            };
 
         case POKEMONS_ORDER:
             let orderedPokemons = [...state.pokemons];
 
             switch (action.payload) {
                 case "default":
-                    return { ...state, pokemons: state.allPokemons };
+                    return {
+                        ...state,
+                        pokemons: state.allPokemons,
+                        orderValue: action.payload,
+                    };
                 case "alphabeticalAsc":
                     orderedPokemons.sort((a, b) =>
                         a.name.localeCompare(b.name)
@@ -101,7 +128,11 @@ const rootReducer = (state = initialState, action) => {
                 default:
                     break;
             }
-            return { ...state, pokemons: orderedPokemons };
+            return {
+                ...state,
+                pokemons: orderedPokemons,
+                orderValue: action.payload,
+            };
         case POKEMONS_REMOVE:
             return { ...state, pokemons: [] };
         case POKEMONS_BY_NAME_GET:

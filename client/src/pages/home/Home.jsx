@@ -60,20 +60,26 @@ const SelectSource = ({ pokemons }) => {
 };
 
 const Home = (props) => {
+    const { pokemons, types, filtersValues, orderValue } = props;
+
+    const {
+        getAllPokemons,
+        filterPokemonsByType,
+        filterPokemonsBySource,
+        orderPokemons,
+        getAllTypes,
+    } = props;
+
     const [currentPage, setCurrentPage] = useState(1);
     const [pokemonsPerPage, setPokemonsPerPage] = useState(12);
-    const [filterType, setFilterType] = useState("allTypes");
-    const [filterSource, setFilterSource] = useState("allSources");
-    const [order, setOrder] = useState("default");
+    const [filterType, setFilterType] = useState(filtersValues.byType);
+    const [filterSource, setFilterSource] = useState(filtersValues.bySource);
+    const [order, setOrder] = useState(orderValue);
 
-    // Get All Pokemons & types
-    const types = props.types;
     useEffect(() => {
-        props.getAllPokemons();
-        !props.types.length && props.getAllTypes();
+        !pokemons.length && getAllPokemons();
+        !types.length && getAllTypes();
     }, []);
-
-    const pokemons = props.pokemons;
 
     // Paginated
     const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
@@ -93,20 +99,20 @@ const Home = (props) => {
     // Filters
     const handleFilterByType = (event) => {
         setFilterType(event.target.value);
-        props.filterPokemonsByType(event.target.value);
+        filterPokemonsByType(event.target.value);
         setCurrentPage(1);
     };
 
     const handleFilterBySource = (event) => {
         setFilterSource(event.target.value);
-        props.filterPokemonsBySource(event.target.value);
+        filterPokemonsBySource(event.target.value);
         setCurrentPage(1);
     };
 
     // Order
     const handleOrder = (event) => {
         setOrder(event.target.value);
-        props.orderPokemons(event.target.value);
+        orderPokemons(event.target.value);
         setCurrentPage(1);
     };
 
@@ -177,6 +183,8 @@ const mapStateToProps = (state) => {
     return {
         pokemons: state.pokemons,
         types: state.types,
+        filtersValues: state.filtersValues,
+        orderValue: state.orderValue,
     };
 };
 
