@@ -3,7 +3,6 @@ import {
     GLOBAL_ERROR_SET,
     GLOBAL_ERROR_REMOVE,
     ALL_POKEMONS_GET,
-    POKEMONS_SET,
     POKEMONS_FILTER_BY_TYPE,
     POKEMONS_FILTER_BY_SOURCE,
     POKEMONS_ORDER,
@@ -28,6 +27,7 @@ const initialState = {
 // ======================== Root Reducer
 
 const rootReducer = (state = initialState, action) => {
+    console.log(state);
     switch (action.type) {
         // Global Error - SETTER, REMOVER
         case GLOBAL_ERROR_SET:
@@ -44,40 +44,44 @@ const rootReducer = (state = initialState, action) => {
             };
 
         // Pokemons - SETTER, FILTER (2), ORDER, REMOVER, SETTER BY NAME
-        case POKEMONS_SET:
-            return {
-                ...state,
-                pokemons: state.allPokemons,
-            };
         case POKEMONS_FILTER_BY_TYPE:
-            return {
-                ...state,
-                pokemons: state.pokemons.filter((p) =>
-                    p.types.includes(action.payload)
-                ),
-            };
+            const filteredPokemonsByType =
+                action.payload === "allTypes"
+                    ? state.allPokemons
+                    : state.pokemons.filter((p) =>
+                          p.types.includes(action.payload)
+                      );
+
+            return { ...state, pokemons: filteredPokemonsByType };
         case POKEMONS_FILTER_BY_SOURCE:
-            if (action.payload === "dataBase") {
+            if (action.payload === "allSources") {
                 return {
                     ...state,
-                    pokemons: state.pokemons.filter(
-                        (p) => isNaN(p.id) === true
-                    ),
+                    pokemons: state.allPokemons,
                 };
+            }
+
+            let filteredPokemonsBySource = {};
+
+            if (action.payload === "dataBase") {
+                filteredPokemonsBySource = state.pokemons.filter(
+                    (p) => isNaN(p.id) === true
+                );
             }
             if (action.payload === "pokeApi") {
-                return {
-                    ...state,
-                    pokemons: state.pokemons.filter(
-                        (p) => isNaN(p.id) === false
-                    ),
-                };
+                filteredPokemonsBySource = state.pokemons.filter(
+                    (p) => isNaN(p.id) === false
+                );
             }
-            break;
+
+            return { ...state, pokemons: filteredPokemonsBySource };
+
         case POKEMONS_ORDER:
             let orderedPokemons = [...state.pokemons];
 
             switch (action.payload) {
+                case "default":
+                    return { ...state, pokemons: state.allPokemons };
                 case "alphabeticalAsc":
                     orderedPokemons.sort((a, b) =>
                         a.name.localeCompare(b.name)

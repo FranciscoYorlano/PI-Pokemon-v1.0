@@ -13,7 +13,6 @@ export const GLOBAL_ERROR_REMOVE = "GLOBAL_ERROR_REMOVE";
 export const ALL_POKEMONS_GET = "GET_ALL_POKEMONS";
 
 // Pokemons - SETTER, FILTER (2), ORDER, REMOVER, SETTER BY NAME
-export const POKEMONS_SET = "POKEMONS_SET";
 export const POKEMONS_FILTER_BY_TYPE = "POKEMONS_FILTER_BY_TYPE";
 export const POKEMONS_FILTER_BY_SOURCE = "POKEMONS_FILTER_BY_SOURCE";
 export const POKEMONS_ORDER = "POKEMONS_ORDER";
@@ -70,12 +69,6 @@ export const getPokemonsByName = (name) => {
                 payload: `Pokemon "${name}" does not exist.`,
             });
         }
-    };
-};
-
-export const setPokemons = () => {
-    return {
-        type: POKEMONS_SET,
     };
 };
 

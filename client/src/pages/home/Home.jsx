@@ -15,19 +15,8 @@ import {
     filterPokemonsByType,
     filterPokemonsBySource,
     orderPokemons,
-    setPokemons,
+    getAllTypes,
 } from "../../redux/actions";
-
-// ======================== Functions
-const getUniqueTypes = (pokemons) => {
-    const typesForFilters = new Set();
-    pokemons.forEach((pokemon) => {
-        pokemon.types.forEach((type) => {
-            typesForFilters.add(type);
-        });
-    });
-    return typesForFilters;
-};
 
 // ======================== Components
 const SelectType = ({ type, pokemons }) => {
@@ -36,7 +25,7 @@ const SelectType = ({ type, pokemons }) => {
     ).length;
     const typeName = type[0].toUpperCase() + type.substring(1);
     return (
-        <option value={type}>
+        <option value={type} disabled={!Boolean(count)}>
             {typeName} ({count})
         </option>
     );
@@ -51,10 +40,18 @@ const SelectSource = ({ pokemons }) => {
     ).length;
     return (
         <>
-            <option key="0" value="dataBase">
+            <option
+                key="0"
+                value="dataBase"
+                disabled={!Boolean(dataBasePokemons)}
+            >
                 Created ({dataBasePokemons})
             </option>
-            <option key="1" value="pokeApi">
+            <option
+                key="1"
+                value="pokeApi"
+                disabled={!Boolean(pokeApiPokemons)}
+            >
                 Originals ({pokeApiPokemons})
             </option>
         </>
@@ -68,13 +65,14 @@ const Home = (props) => {
     const [filterSource, setFilterSource] = useState("allSources");
     const [order, setOrder] = useState("default");
 
-    // Get All Pokemons
+    // Get All Pokemons & types
+    const types = props.types;
     useEffect(() => {
         props.getAllPokemons();
-    }, [props]);
+        !props.types.length && props.getAllTypes();
+    }, []);
 
     const pokemons = props.pokemons;
-    const types = getUniqueTypes(pokemons);
 
     // Paginated
     const totalPages = Math.ceil(pokemons.length / pokemonsPerPage);
@@ -94,27 +92,21 @@ const Home = (props) => {
     // Filters
     const handleFilterByType = (event) => {
         setFilterType(event.target.value);
-        if (event.target.value === "allTypes") {
-            props.setPokemons();
-        }
         props.filterPokemonsByType(event.target.value);
+        setCurrentPage(1);
     };
 
     const handleFilterBySource = (event) => {
         setFilterSource(event.target.value);
-        if (event.target.value === "allSources") {
-            props.setPokemons();
-        }
         props.filterPokemonsBySource(event.target.value);
+        setCurrentPage(1);
     };
 
     // Order
     const handleOrder = (event) => {
-        if (event.target.value === "defaul") {
-            props.setPokemons();
-        }
         setOrder(event.target.value);
         props.orderPokemons(event.target.value);
+        setCurrentPage(1);
     };
 
     return (
@@ -124,10 +116,10 @@ const Home = (props) => {
                     <span>Filters:</span>
                     <select value={filterType} onChange={handleFilterByType}>
                         <option value="allTypes">All types</option>
-                        {Array.from(types).map((type) => (
+                        {types.map((type) => (
                             <SelectType
-                                key={type}
-                                type={type}
+                                key={type.id}
+                                type={type.name}
                                 pokemons={pokemons}
                             />
                         ))}
@@ -203,6 +195,7 @@ const Home = (props) => {
 const mapStateToProps = (state) => {
     return {
         pokemons: state.pokemons,
+        types: state.types,
     };
 };
 
@@ -213,7 +206,7 @@ const mapDispatchToProps = (dispatch) => {
         filterPokemonsBySource: (source) =>
             dispatch(filterPokemonsBySource(source)),
         orderPokemons: (order) => dispatch(orderPokemons(order)),
-        setPokemons: () => dispatch(setPokemons()),
+        getAllTypes: () => dispatch(getAllTypes()),
     };
 };
 
