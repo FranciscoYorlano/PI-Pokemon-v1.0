@@ -2,7 +2,8 @@
 import styles from "./home.module.css";
 
 // ======================== Components
-import Card from "../../components/card/Card";
+import CardContainer from "../../components/cardContainer/CardContainer";
+import Pagination from "../../components/pagination/Pagination";
 
 // ======================== Hooks
 import { useState, useEffect } from "react";
@@ -132,18 +133,12 @@ const Home = (props) => {
                         <SelectSource pokemons={pokemons} />
                     </select>
                 </div>
-                <div className={styles.pagesContainer}>
-                    {pages.map((page) => (
-                        <button
-                            id={page}
-                            key={page}
-                            onClick={handlePageChange}
-                            disabled={page === currentPage}
-                            className={styles.button}
-                        >
-                            {page}
-                        </button>
-                    ))}
+                <div className={styles.topPagination}>
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        handlePageChange={handlePageChange}
+                    />
                 </div>
                 <div className={styles.sortContainer}>
                     <span>Sort: </span>
@@ -161,32 +156,18 @@ const Home = (props) => {
                 </div>
             </div>
             {pokemons.length ? (
-                <div className={styles.cardsContainer}>
-                    {paginatedPokemons.map((pokemon) => (
-                        <div key={pokemon.id}>
-                            <Card pokemon={pokemon} />
-                        </div>
-                    ))}
-                </div>
+                <CardContainer paginatedPokemons={paginatedPokemons} />
             ) : (
                 <div className={styles.loadingContainer}>
                     <span className={styles.loader}></span>
                 </div>
             )}
             <div className={styles.navBarMobile}>
-                <div className={styles.pagesContainerMobile}>
-                    {pages.map((page) => (
-                        <button
-                            id={page}
-                            key={page}
-                            onClick={handlePageChange}
-                            className={styles.button}
-                            disabled={page === currentPage}
-                        >
-                            {page}
-                        </button>
-                    ))}
-                </div>
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    handlePageChange={handlePageChange}
+                />
             </div>
         </div>
     );

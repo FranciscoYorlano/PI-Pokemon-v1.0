@@ -3,15 +3,6 @@
     width: 100%;
 }
 
-.cardsContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    grid-gap: 2rem;
-    grid-auto-flow: dense;
-    justify-items: center;
-    margin: 1rem;
-}
-
 .loadingContainer {
     display: flex;
     flex-wrap: wrap;
@@ -81,34 +72,6 @@
     background-color: #f9a826;
 }
 
-.pagesContainer {
-    justify-self: center;
-    display: flex;
-    align-items: center;
-    gap: 0.2rem;
-}
-
-.button {
-    padding: 0.5rem 1.2rem;
-    border-radius: 0.8rem;
-    color: #006571;
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-    background-color: #f9a826;
-    font-family: "Montserrat", sans-serif;
-    transition: background-color 0.1s ease-in-out;
-    font-weight: bold;
-}
-
-.button:disabled {
-    background: linear-gradient(to bottom right, #8a2be2, #4b0082);
-    transition: background-color 0.1s ease-in-out;
-    color: #ffffff;
-    box-shadow: none;
-    font-weight: bold;
-}
-
 .navBarMobile {
     display: grid;
     grid-template-rows: 60px;
@@ -120,11 +83,11 @@
     color: #006571;
 }
 
-.pagesContainerMobile {
+.topPagination {
+    display: flex;
     justify-self: center;
     display: flex;
     align-items: center;
-    gap: 0.2rem;
 }
 
 @media only screen and (max-width: 480px) {
@@ -138,7 +101,7 @@
         height: 40px;
     }
 
-    .pagesContainer {
+    .topPagination {
         display: none;
     }
 
