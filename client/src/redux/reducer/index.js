@@ -150,7 +150,11 @@ const rootReducer = (state = initialState, action) => {
 
         // Create Pokemon
         case CREATE_POKEMON:
-            return { ...state };
+            return {
+                ...state,
+                allPokemons: [...state.allPokemons, action.payload],
+                pokemons: [...state.pokemons, action.payload],
+            };
 
         default:
             return { ...state };

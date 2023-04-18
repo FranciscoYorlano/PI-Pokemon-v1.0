@@ -136,9 +136,10 @@ export const createPokemon = (newPokemon) => {
                 `${BACKEND_URL}/pokemons`,
                 newPokemon
             );
+            const createdPokemon = response.data;
             dispatch({
                 type: CREATE_POKEMON,
-                payload: response.data,
+                payload: createdPokemon,
             });
         } catch (error) {
             dispatch({ type: GLOBAL_ERROR_SET, payload: error.message });
