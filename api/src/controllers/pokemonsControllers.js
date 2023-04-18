@@ -87,7 +87,7 @@ const getAllPokemons = async () => {
 
 const getPokemonsByName = async (name) => {
     const pokemonsDb = await Pokemon.findAll({
-        where: { name: { [Op.iLike]: `%${name}%` } },
+        where: { name: { [Op.iLike]: name } },
         include: Type,
     });
 
