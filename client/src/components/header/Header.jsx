@@ -10,7 +10,7 @@ import { useState } from "react";
 
 // ======================== React Redux
 import { useDispatch } from "react-redux";
-import { getAllPokemons, getPokemonsByName } from "../../redux/actions";
+import { getPokemonsByName, removePokemons } from "../../redux/actions";
 
 const Header = () => {
     const [name, setName] = useState("");
@@ -25,7 +25,7 @@ const Header = () => {
         if (name !== "") {
             dispatch(getPokemonsByName(name));
         } else {
-            dispatch(getAllPokemons());
+            dispatch(removePokemons());
         }
     };
 

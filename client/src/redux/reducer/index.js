@@ -50,12 +50,21 @@ const rootReducer = (state = initialState, action) => {
 
         // Pokemons - SETTER, FILTER (2), ORDER, REMOVER, SETTER BY NAME
         case POKEMONS_FILTER_BY_TYPE:
-            const filteredPokemonsByType =
-                action.payload === "allTypes"
-                    ? state.allPokemons
-                    : state.pokemons.filter((p) =>
-                          p.types.includes(action.payload)
-                      );
+            if (action.payload === "allTypes") {
+                return {
+                    ...state,
+                    pokemons: state.allPokemons,
+                    filtersValues: {
+                        ...state.filtersValues,
+                        bySource: "allSources",
+                        byType: action.payload,
+                    },
+                };
+            }
+
+            const filteredPokemonsByType = state.pokemons.filter((p) =>
+                p.types.includes(action.payload)
+            );
 
             return {
                 ...state,
@@ -73,6 +82,7 @@ const rootReducer = (state = initialState, action) => {
                     filtersValues: {
                         ...state.filtersValues,
                         bySource: action.payload,
+                        byType: "allTypes",
                     },
                 };
             }
@@ -134,7 +144,7 @@ const rootReducer = (state = initialState, action) => {
                 orderValue: action.payload,
             };
         case POKEMONS_REMOVE:
-            return { ...state, pokemons: [] };
+            return { ...state, pokemons: state.allPokemons };
         case POKEMONS_BY_NAME_GET:
             return { ...state, pokemons: action.payload };
 

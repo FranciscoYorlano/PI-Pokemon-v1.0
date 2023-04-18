@@ -26,7 +26,7 @@ const SelectType = ({ type, pokemons }) => {
     ).length;
     const typeName = type[0].toUpperCase() + type.substring(1);
     return (
-        <option value={type} disabled={!Boolean(count)}>
+        <option value={type}>
             {typeName} ({count})
         </option>
     );
@@ -41,18 +41,10 @@ const SelectSource = ({ pokemons }) => {
     ).length;
     return (
         <>
-            <option
-                key="0"
-                value="dataBase"
-                disabled={!Boolean(dataBasePokemons)}
-            >
+            <option key="0" value="dataBase">
                 Created ({dataBasePokemons})
             </option>
-            <option
-                key="1"
-                value="pokeApi"
-                disabled={!Boolean(pokeApiPokemons)}
-            >
+            <option key="1" value="pokeApi">
                 Originals ({pokeApiPokemons})
             </option>
         </>
