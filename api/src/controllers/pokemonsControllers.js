@@ -191,7 +191,14 @@ const createNewPokemon = async (pokemon) => {
         });
     }
 
-    return newPokemon;
+    // Return pokemon created
+    const createdPokemon = await Pokemon.findByPk(newPokemon.id, {
+        include: Type,
+    });
+
+    return minifiedPokemonTemplateCreator(
+        dbPokemonTemplateCreator(createdPokemon)
+    );
 };
 
 module.exports = {
