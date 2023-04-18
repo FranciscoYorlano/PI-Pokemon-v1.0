@@ -50,7 +50,10 @@ export const getAllPokemons = () => {
             const pokemons = response.data;
             dispatch({ type: ALL_POKEMONS_GET, payload: pokemons });
         } catch (error) {
-            dispatch({ type: GLOBAL_ERROR_SET, payload: error.message });
+            dispatch({
+                type: GLOBAL_ERROR_SET,
+                payload: error.response.data.error,
+            });
         }
     };
 };
@@ -66,7 +69,7 @@ export const getPokemonsByName = (name) => {
         } catch (error) {
             dispatch({
                 type: GLOBAL_ERROR_SET,
-                payload: `Pokemon "${name}" does not exist.`,
+                payload: error.response.data.error,
             });
         }
     };
@@ -106,7 +109,11 @@ export const getPokemonDetail = (id) => {
             const pokemon = response.data;
             dispatch({ type: POKEMON_DETAIL_GET, payload: pokemon });
         } catch (error) {
-            dispatch({ type: GLOBAL_ERROR_SET, payload: error.message });
+            console.log(error);
+            dispatch({
+                type: GLOBAL_ERROR_SET,
+                payload: error.response.data.error,
+            });
         }
     };
 };
@@ -124,7 +131,10 @@ export const getAllTypes = () => {
             const types = response.data;
             dispatch({ type: TYPES_GET, payload: types });
         } catch (error) {
-            dispatch({ type: GLOBAL_ERROR_SET, payload: error.message });
+            dispatch({
+                type: GLOBAL_ERROR_SET,
+                payload: error.response.data.error,
+            });
         }
     };
 };
@@ -142,7 +152,10 @@ export const createPokemon = (newPokemon) => {
                 payload: createdPokemon,
             });
         } catch (error) {
-            dispatch({ type: GLOBAL_ERROR_SET, payload: error.message });
+            dispatch({
+                type: GLOBAL_ERROR_SET,
+                payload: error.response.data.error,
+            });
         }
     };
 };

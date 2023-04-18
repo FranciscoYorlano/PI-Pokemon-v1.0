@@ -46,6 +46,7 @@ const Create = () => {
 
     const allTypes = useSelector((state) => state.types);
 
+    // Handlers
     const handleChange = (event) => {
         const property = event.target.name;
         const value = event.target.value;
