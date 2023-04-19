@@ -3,11 +3,7 @@ import styles from "./create.module.css";
 import pikachu from "../../assets/pikachu.png";
 
 // ======================== Validators
-import {
-    validateCreate,
-    validateTypes,
-    validateRequired,
-} from "../../functions/validateCreate";
+import { validateCreate, validateTypes } from "../../functions/validateCreate";
 
 // ======================== Hooks
 import { useState, useEffect } from "react";
@@ -51,8 +47,11 @@ const Create = () => {
         errorTypes,
     };
 
-    // Get all Types
+    const globalError = useSelector((state) => state.globalError);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    // Get all Types
     useEffect(() => {
         dispatch(getAllTypes());
     }, [dispatch]);
@@ -129,38 +128,33 @@ const Create = () => {
         }
     };
 
-    const navigate = useNavigate();
     const submitHandler = (event) => {
         event.preventDefault();
 
         if (!buttonDisabled) {
-            setErrorName(validateRequired({ name: newPokemon.name }).errorName);
-            setErrorImage(
-                validateRequired({ image: newPokemon.image }).errorImage
-            );
-            setErrorLife(validateRequired({ life: newPokemon.life }).errorLife);
+            setErrorImage(validateCreate({ image: newPokemon.image }).image);
+
+            setErrorLife(validateCreate({ life: newPokemon.life }).life);
+
             setErrorAttack(
-                validateRequired({ attack: newPokemon.attack }).errorAttack
+                validateCreate({ attack: newPokemon.attack }).attack
             );
+
             setErrorDefense(
-                validateRequired({ defense: newPokemon.defense }).errorDefense
+                validateCreate({ defense: newPokemon.defense }).defense
             );
+
             setErrorTypes(validateTypes(newPokemon.types));
 
-            if (Object.values(errorObj).some((error) => error !== "")) {
+            if (!Object.values(errorObj).some((error) => error !== "")) {
                 const pokemonToCreate = {
                     ...newPokemon,
                     types: newPokemon.types.map((type) => Number(type.id)),
-                    life: Number(newPokemon.life),
-                    attack: Number(newPokemon.attack),
-                    defense: Number(newPokemon.defense),
-                    speed: Number(newPokemon.speed),
-                    height: Number(newPokemon.height),
-                    weight: Number(newPokemon.weight),
                 };
 
                 dispatch(createPokemon(pokemonToCreate));
-
+                if (!globalError) {
+                }
                 setNewPokemon({
                     name: "",
                     image: "",

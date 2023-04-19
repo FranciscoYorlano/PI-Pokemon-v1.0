@@ -44,7 +44,11 @@ const SelectSource = ({ pokemons }) => {
             <option key="0" value="dataBase">
                 Created ({dataBasePokemons})
             </option>
-            <option key="1" value="pokeApi">
+            <option
+                key="1"
+                value="pokeApi"
+                disabled={!Boolean(pokeApiPokemons)}
+            >
                 Originals ({pokeApiPokemons})
             </option>
         </>
