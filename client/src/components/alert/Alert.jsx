@@ -2,23 +2,14 @@
 import styles from "./alert.module.css";
 
 // ======================== Hooks
-import { useState } from "react";
-
-// ======================== Hooks
 import { connect } from "react-redux";
 import { removeGlobalError } from "../../redux/actions";
-
-// ======================== Link
-import { Link } from "react-router-dom";
 
 const Alert = (props) => {
     const { globalError, removeGlobalError } = props;
 
-    const [error, setError] = useState(globalError);
-
     const handleCloseAlert = () => {
         removeGlobalError();
-        setError("");
     };
 
     return (
@@ -31,10 +22,16 @@ const Alert = (props) => {
                 >
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <p>{error}</p>
+                <p>{globalError}</p>
             </div>
         </div>
     );
+};
+
+const mapStateToProps = (state) => {
+    return {
+        globalError: state.globalError,
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -43,4 +40,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(Alert);
+export default connect(mapStateToProps, mapDispatchToProps)(Alert);

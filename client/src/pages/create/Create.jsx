@@ -11,7 +11,11 @@ import { useNavigate } from "react-router-dom";
 
 // ======================== Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTypes, createPokemon } from "../../redux/actions";
+import {
+    getAllTypes,
+    createPokemon,
+    setGlobalSuccess,
+} from "../../redux/actions";
 
 const Create = () => {
     const [newPokemon, setNewPokemon] = useState({
@@ -154,6 +158,9 @@ const Create = () => {
 
                 dispatch(createPokemon(pokemonToCreate));
                 if (!globalError) {
+                    dispatch(
+                        setGlobalSuccess("New pokemon successfully created.")
+                    );
                 }
                 setNewPokemon({
                     name: "",

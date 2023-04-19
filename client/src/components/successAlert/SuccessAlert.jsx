@@ -1,24 +1,15 @@
 // ======================== Styles
-import styles from "./alert.module.css";
-
-// ======================== Hooks
-import { useState } from "react";
+import styles from "./successAlert.module.css";
 
 // ======================== Hooks
 import { connect } from "react-redux";
-import { removeGlobalError } from "../../redux/actions";
+import { removeGlobalSuccess } from "../../redux/actions";
 
-// ======================== Link
-import { Link } from "react-router-dom";
-
-const Alert = (props) => {
-    const { globalError, removeGlobalError } = props;
-
-    const [error, setError] = useState(globalError);
+const SuccessAlert = (props) => {
+    const { globalSuccess, removeGlobalSuccess } = props;
 
     const handleCloseAlert = () => {
-        removeGlobalError();
-        setError("");
+        removeGlobalSuccess();
     };
 
     return (
@@ -31,16 +22,22 @@ const Alert = (props) => {
                 >
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <p>{error}</p>
+                <p>{globalSuccess}</p>
             </div>
         </div>
     );
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
     return {
-        removeGlobalError: () => dispatch(removeGlobalError()),
+        globalSuccess: state.globalSuccess,
     };
 };
 
-export default connect(null, mapDispatchToProps)(Alert);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        removeGlobalSuccess: () => dispatch(removeGlobalSuccess()),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SuccessAlert);
