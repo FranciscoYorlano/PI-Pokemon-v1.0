@@ -9,10 +9,14 @@ const BACKEND_URL = "http://192.168.0.157:3001";
 export const GLOBAL_ERROR_SET = "GLOBAL_ERROR_SET";
 export const GLOBAL_ERROR_REMOVE = "GLOBAL_ERROR_REMOVE";
 
+// Global Success - SETTER, REMOVER
+export const GLOBAL_SUCCESS_SET = "GLOBAL_SUCCESS_SET";
+export const GLOBAL_SUCCESS_REMOVE = "GLOBAL_SUCCESS_REMOVE";
+
 // All Pokemons - SETTER
 export const ALL_POKEMONS_GET = "GET_ALL_POKEMONS";
 
-// Pokemons - SETTER, FILTER (2), ORDER, REMOVER, SETTER BY NAME
+// Pokemons - FILTER (2), ORDER, REMOVER, SETTER BY NAME
 export const POKEMONS_FILTER_BY_TYPE = "POKEMONS_FILTER_BY_TYPE";
 export const POKEMONS_FILTER_BY_SOURCE = "POKEMONS_FILTER_BY_SOURCE";
 export const POKEMONS_ORDER = "POKEMONS_ORDER";
@@ -40,6 +44,19 @@ export const setGlobalError = (error) => {
 export const removeGlobalError = () => {
     return {
         type: GLOBAL_ERROR_REMOVE,
+    };
+};
+
+export const setGlobalSuccess = (message) => {
+    return {
+        type: GLOBAL_SUCCESS_SET,
+        payload: message,
+    };
+};
+
+export const removeGlobalSuccess = () => {
+    return {
+        type: GLOBAL_SUCCESS_REMOVE,
     };
 };
 

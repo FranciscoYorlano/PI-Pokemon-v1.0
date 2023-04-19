@@ -2,6 +2,8 @@
 import {
     GLOBAL_ERROR_SET,
     GLOBAL_ERROR_REMOVE,
+    GLOBAL_SUCCESS_SET,
+    GLOBAL_SUCCESS_REMOVE,
     ALL_POKEMONS_GET,
     POKEMONS_FILTER_BY_TYPE,
     POKEMONS_FILTER_BY_SOURCE,
@@ -18,6 +20,7 @@ import {
 
 const initialState = {
     globalError: "",
+    globalSuccess: "",
     allPokemons: [],
     pokemons: [],
     filtersValues: {
@@ -39,6 +42,12 @@ const rootReducer = (state = initialState, action) => {
             return { ...state, globalError: action.payload };
         case GLOBAL_ERROR_REMOVE:
             return { ...state, globalError: "" };
+
+        // Global Success - SETTER, REMOVER
+        case GLOBAL_SUCCESS_SET:
+            return { ...state, globalSuccess: action.payload };
+        case GLOBAL_SUCCESS_REMOVE:
+            return { ...state, globalSuccess: "" };
 
         // All pokemons - SETTER
         case ALL_POKEMONS_GET:

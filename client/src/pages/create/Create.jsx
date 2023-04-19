@@ -177,9 +177,9 @@ const Create = () => {
         }
     };
 
-    const buttonDisabled = Object.values(errorObj).some(
-        (error) => error !== ""
-    );
+    const buttonDisabled =
+        Object.values(errorObj).some((error) => error !== "") ||
+        newPokemon.name === "";
     return (
         <div className={styles.createContainer}>
             <div className={styles.formContainer}>
