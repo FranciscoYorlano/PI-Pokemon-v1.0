@@ -1,4 +1,4 @@
-const validateCreate = (newPokemon) => {
+export const validateCreate = (newPokemon) => {
     const { name, image, life, attack, defense, speed, height, weight, types } =
         newPokemon;
 
@@ -19,18 +19,18 @@ const validateCreate = (newPokemon) => {
 
     if (!name) {
         errors.name = "Pokemon name is required.";
-    }
-
-    if (name.length > 20) {
-        errors.name = "Pokemon name should not be longer than 20 characters.";
-    }
-
-    if (!REGEX_URL.test(image)) {
-        errors.image = "Pokemon image url is invalid.";
+    } else {
+        if (name.length > 20)
+            errors.name =
+                "Pokemon name should not be longer than 20 characters.";
     }
 
     if (!image) {
         errors.image = "Pokemon image is required.";
+    } else {
+        if (!REGEX_URL.test(image)) {
+            errors.image = "Pokemon image url is invalid.";
+        }
     }
 
     if (!life) errors.life = "Pokemon life is required.";
@@ -39,28 +39,55 @@ const validateCreate = (newPokemon) => {
 
     if (!defense) errors.defense = "Pokemon defense is required.";
 
-    if (life && life < 0)
-        errors.life = "Pokemon life must be greater or equal to zero";
+    if (life < 0) errors.life = "Pokemon life must be greater or equal to zero";
 
-    if (attack & (attack < 0))
+    if (attack < 0)
         errors.attack = "Pokemon attack must be greater or equal to zero";
 
-    if (defense && defense < 0)
+    if (defense < 0)
         errors.defense = "Pokemon defense must be greater or equal to zero";
 
-    if (speed && speed < 0)
+    if (speed < 0)
         errors.speed = "Pokemon speed must be greater or equal to zero";
 
-    if (height && height < 0)
+    if (height < 0)
         errors.height = "Pokemon height must be greater or equal to zero";
 
-    if (weight && weight < 0)
+    if (weight < 0)
         errors.weight = "Pokemon weight must be greater or equal to zero";
-
-    if (types.length > 3)
-        errors.types = "Pokemon must not have more than 3 types.";
 
     return errors;
 };
 
-export default validateCreate;
+export const validateTypes = (types) => {
+    if (types.length === 0) return "Pokemons must have at least one type";
+
+    if (types.length > 3) return "Pokemon must not have more than 3 types.";
+
+    return "";
+};
+
+export const validateRequired = (newPokemon) => {
+    const { name, image, life, attack, defense, types } = newPokemon;
+
+    const errors = {
+        errorName: "",
+        errorImage: "",
+        errorLife: "",
+        errorAttack: "",
+        errorDefense: "",
+        errorTypes: "",
+    };
+
+    if (!name) errors.errorName = "Pokemon name is required.";
+
+    if (!image) errors.errorImage = "Pokemon image is required.";
+
+    if (!life) errors.errorLife = "Pokemon life is required.";
+
+    if (!attack) errors.errorAttack = "Pokemon attack is required.";
+
+    if (!defense) errors.errorDefense = "Pokemon defense is required.";
+
+    return errors;
+};
