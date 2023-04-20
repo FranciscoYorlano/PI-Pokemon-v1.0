@@ -17,50 +17,45 @@ export const validateCreate = (newPokemon) => {
     };
 
     if (!name) {
-        errors.name = "Pokemon name is required.";
+        errors.name = "Name is required.";
     } else {
         if (name.length > 20)
-            errors.name =
-                "Pokemon name should not be longer than 20 characters.";
+            errors.name = "Name should not be longer than 20 characters.";
     }
 
     if (!image) {
-        errors.image = "Pokemon image is required.";
+        errors.image = "Image is required.";
     } else {
         if (!REGEX_URL.test(image)) {
-            errors.image = "Pokemon image url is invalid.";
+            errors.image = "Image url is invalid.";
         }
     }
 
     if (!life) {
-        errors.life = "Pokemon life is required.";
+        errors.life = "Life is required.";
     } else {
-        if (life < 0)
-            errors.life = "Pokemon life must be greater or equal to zero";
+        if (life < 0) errors.life = "Life must be greater or equal to zero";
     }
 
     if (!attack) {
-        errors.attack = "Pokemon attack is required.";
+        errors.attack = "Attack is required.";
     } else {
         if (attack < 0)
-            errors.attack = "Pokemon attack must be greater or equal to zero";
+            errors.attack = "Attack must be greater or equal to zero";
     }
 
     if (!defense) {
-        errors.defense = "Pokemon defense is required.";
+        errors.defense = "Defense is required.";
     } else {
         if (defense < 0)
-            errors.defense = "Pokemon defense must be greater or equal to zero";
+            errors.defense = "Defense must be greater or equal to zero";
     }
 
-    if (speed < 0)
-        errors.speed = "Pokemon speed must be greater or equal to zero";
+    if (speed < 0) errors.speed = "speed must be greater or equal to zero";
 
-    if (height < 0)
-        errors.height = "Pokemon height must be greater or equal to zero";
+    if (height < 0) errors.height = "Height must be greater or equal to zero";
 
-    if (weight < 0)
-        errors.weight = "Pokemon weight must be greater or equal to zero";
+    if (weight < 0) errors.weight = "Weight must be greater or equal to zero";
 
     return errors;
 };
