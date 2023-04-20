@@ -192,6 +192,7 @@ const Create = () => {
                     types: newPokemon.types.map((type) => Number(type.id)),
                 };
                 dispatch(createPokemon(pokemonToCreate));
+                dispatch(setGlobalSuccess("Pokemon created successfully."));
                 setNewPokemon({
                     name: "",
                     image: "",
@@ -203,7 +204,6 @@ const Create = () => {
                     weight: 0,
                     types: [],
                 });
-                setGlobalSuccess("Pokemon created");
                 navigate("/home");
             }
         }
