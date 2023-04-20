@@ -48,10 +48,10 @@ const Create = () => {
     const navigate = useNavigate();
 
     // Get all Types
-    useEffect(() => {
-        dispatch(getAllTypes());
-    }, [dispatch]);
     const allTypes = useSelector((state) => state.types);
+    useEffect(() => {
+        !allTypes.length && dispatch(getAllTypes());
+    }, [dispatch]);
 
     // Handlers
     const handleNameChange = (event) => {
