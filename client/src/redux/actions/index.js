@@ -126,7 +126,6 @@ export const getPokemonDetail = (id) => {
             const pokemon = response.data;
             dispatch({ type: POKEMON_DETAIL_GET, payload: pokemon });
         } catch (error) {
-            console.log(error);
             dispatch({
                 type: GLOBAL_ERROR_SET,
                 payload: error.response.data.error,

@@ -184,7 +184,7 @@ const Create = () => {
                 weight: validateErrors.weight,
                 types: validateTypes(newPokemon.types),
             };
-            setErrors((prev) => newErrors);
+            setErrors(newErrors);
         } else {
             if (!Object.values(errors).some((error) => error !== "")) {
                 const pokemonToCreate = {
