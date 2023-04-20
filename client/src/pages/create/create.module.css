@@ -73,18 +73,31 @@
     border: 1px solid #ced4da;
 }
 
+input:focus {
+    outline: 0;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
 .error {
-    border: 1px solid #cc0000;
+    border: 1px solid #f44336;
+}
+
+.error:focus {
+    outline: 0;
+    border-color: #f44336;
+    box-shadow: 0 0 0 0.2rem rgba(244, 67, 54, 0.25);
 }
 
 .spanError {
-    color: #cc0000;
-    font-size: 0.7rem;
+    color: #dc3545;
+    font-size: 0.9rem;
     margin-bottom: 1rem;
 }
 
 .typesSelectors {
     margin-top: 1rem;
+    margin-bottom: 0.2rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
     grid-gap: 1rem;

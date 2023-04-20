@@ -21,12 +21,12 @@ const Create = () => {
     const [newPokemon, setNewPokemon] = useState({
         name: "",
         image: "",
-        life: 0,
-        attack: 0,
-        defense: 0,
-        speed: 0,
-        height: 0,
-        weight: 0,
+        life: null,
+        attack: null,
+        defense: null,
+        speed: null,
+        height: null,
+        weight: null,
         types: [],
     });
 
@@ -41,6 +41,8 @@ const Create = () => {
         weight: "",
         types: "",
     });
+
+    const [buttonClicks, setButtonClicks] = useState(0);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -163,35 +165,32 @@ const Create = () => {
     };
 
     let buttonDisabled =
-        Object.values(errors).some((error) => error !== "") ||
-        newPokemon.name === "";
+        newPokemon.name === "" ||
+        Object.values(errors).some((error) => error !== "");
 
-    const submitHandler = async (event) => {
+    const submitHandler = (event) => {
         event.preventDefault();
 
-        const newErrors = {
-            name: validateCreate(newPokemon).name,
-            image: validateCreate(newPokemon).image,
-            life: validateCreate(newPokemon).life,
-            attack: validateCreate(newPokemon).attack,
-            defense: validateCreate(newPokemon).defense,
-            speed: validateCreate(newPokemon).speed,
-            height: validateCreate(newPokemon).height,
-            weight: validateCreate(newPokemon).weight,
-            types: validateTypes(newPokemon.types),
-        };
-
-        setErrors(newErrors);
-        console.log(errors);
-
-        if (!Object.values(errors).some((error) => error !== "")) {
-            const pokemonToCreate = {
-                ...newPokemon,
-                types: newPokemon.types.map((type) => Number(type.id)),
+        if (buttonClicks === 0) {
+            const validateErrors = validateCreate(newPokemon);
+            const newErrors = {
+                name: validateErrors.name,
+                image: validateErrors.image,
+                life: validateErrors.life,
+                attack: validateErrors.attack,
+                defense: validateErrors.defense,
+                speed: validateErrors.speed,
+                height: validateErrors.height,
+                weight: validateErrors.weight,
+                types: validateTypes(newPokemon.types),
             };
-            alert("created");
-        }
-        /*
+            setErrors((prev) => newErrors);
+        } else {
+            if (!Object.values(errors).some((error) => error !== "")) {
+                const pokemonToCreate = {
+                    ...newPokemon,
+                    types: newPokemon.types.map((type) => Number(type.id)),
+                };
                 dispatch(createPokemon(pokemonToCreate));
                 setNewPokemon({
                     name: "",
@@ -204,8 +203,11 @@ const Create = () => {
                     weight: 0,
                     types: [],
                 });
+                setGlobalSuccess("Pokemon created");
                 navigate("/home");
-                */
+            }
+        }
+        setButtonClicks((prev) => prev + 1);
     };
 
     return (
@@ -225,6 +227,7 @@ const Create = () => {
                                 placeholder="Pikachu"
                                 value={newPokemon.name}
                                 onChange={handleNameChange}
+                                autoFocus
                             />
                             <span className={styles.spanError}>
                                 {errors.name}
