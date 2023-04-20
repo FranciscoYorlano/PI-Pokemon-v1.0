@@ -29,29 +29,19 @@ const Create = () => {
         weight: 0,
         types: [],
     });
-    const [errorName, setErrorName] = useState("");
-    const [errorImage, setErrorImage] = useState("");
-    const [errorLife, setErrorLife] = useState("");
-    const [errorAttack, setErrorAttack] = useState("");
-    const [errorDefense, setErrorDefense] = useState("");
-    const [errorSpeed, setErrorSpeed] = useState("");
-    const [errorHeight, setErrorHeight] = useState("");
-    const [errorWeight, setErrorWeight] = useState("");
-    const [errorTypes, setErrorTypes] = useState("");
 
-    const errorObj = {
-        errorName,
-        errorImage,
-        errorLife,
-        errorAttack,
-        errorDefense,
-        errorSpeed,
-        errorHeight,
-        errorWeight,
-        errorTypes,
-    };
+    const [errors, setErrors] = useState({
+        name: "",
+        image: "",
+        life: "",
+        attack: "",
+        defense: "",
+        speed: "",
+        height: "",
+        weight: "",
+        types: "",
+    });
 
-    const globalError = useSelector((state) => state.globalError);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -64,44 +54,82 @@ const Create = () => {
     // Handlers
     const handleNameChange = (event) => {
         setNewPokemon({ ...newPokemon, name: event.target.value });
-        setErrorName(validateCreate({ name: event.target.value }).name);
+        setErrors({
+            ...errors,
+            name: validateCreate({ ...newPokemon, name: event.target.value })
+                .name,
+        });
     };
 
     const handleImageChange = (event) => {
         setNewPokemon({ ...newPokemon, image: event.target.value });
-        setErrorImage(validateCreate({ image: event.target.value }).image);
+        setErrors({
+            ...errors,
+            image: validateCreate({ ...newPokemon, image: event.target.value })
+                .image,
+        });
     };
 
     const handleLifeChange = (event) => {
         setNewPokemon({ ...newPokemon, life: event.target.value });
-        setErrorLife(validateCreate({ life: event.target.value }).life);
+        setErrors({
+            ...errors,
+            life: validateCreate({ ...newPokemon, life: event.target.value })
+                .life,
+        });
     };
 
     const handleAttackChange = (event) => {
         setNewPokemon({ ...newPokemon, attack: event.target.value });
-        setErrorAttack(validateCreate({ attack: event.target.value }).attack);
+        setErrors({
+            ...errors,
+            attack: validateCreate({
+                ...newPokemon,
+                attack: event.target.value,
+            }).attack,
+        });
     };
 
     const handleDefenseChange = (event) => {
         setNewPokemon({ ...newPokemon, defense: event.target.value });
-        setErrorDefense(
-            validateCreate({ defense: event.target.value }).defense
-        );
+        setErrors({
+            ...errors,
+            defense: validateCreate({
+                ...newPokemon,
+                defense: event.target.value,
+            }).defense,
+        });
     };
 
     const handleSpeedChange = (event) => {
         setNewPokemon({ ...newPokemon, speed: event.target.value });
-        setErrorSpeed(validateCreate({ speed: event.target.value }).speed);
+        setErrors({
+            ...errors,
+            speed: validateCreate({ ...newPokemon, speed: event.target.value })
+                .speed,
+        });
     };
 
     const handleHeightChange = (event) => {
         setNewPokemon({ ...newPokemon, height: event.target.value });
-        setErrorHeight(validateCreate({ height: event.target.value }).height);
+        setErrors({
+            ...errors,
+            height: validateCreate({
+                ...newPokemon,
+                height: event.target.value,
+            }).height,
+        });
     };
 
     const handleWeightChange = (event) => {
         setNewPokemon({ ...newPokemon, weight: event.target.value });
-        setErrorWeight(validateCreate({ weight: event.target.value }).weight);
+        setErrors({
+            ...errors,
+            weight: validateCreate({
+                ...newPokemon,
+                weight: event.target.value,
+            }).weight,
+        });
     };
 
     const handleTypesChange = (event) => {
@@ -113,55 +141,58 @@ const Create = () => {
                 ...newPokemon,
                 types: [...newPokemon.types, { id: typeId, name: typeName }],
             });
-            setErrorTypes(
-                validateTypes([
+            setErrors({
+                ...errors,
+                types: validateTypes([
                     ...newPokemon.types,
                     { id: typeId, name: typeName },
-                ])
-            );
+                ]),
+            });
         } else {
             setNewPokemon({
                 ...newPokemon,
                 types: newPokemon.types.filter((type) => type.id !== typeId),
             });
-            setErrorTypes(
-                validateTypes(
-                    newPokemon.types.filter((type) => type.id !== typeId)
-                )
-            );
+            setErrors({
+                ...errors,
+                types: validateTypes([
+                    ...newPokemon.types.filter((type) => type.id !== typeId),
+                ]),
+            });
         }
     };
 
-    const submitHandler = (event) => {
+    let buttonDisabled =
+        Object.values(errors).some((error) => error !== "") ||
+        newPokemon.name === "";
+
+    const submitHandler = async (event) => {
         event.preventDefault();
 
-        if (!buttonDisabled) {
-            setErrorImage(validateCreate({ image: newPokemon.image }).image);
+        const newErrors = {
+            name: validateCreate(newPokemon).name,
+            image: validateCreate(newPokemon).image,
+            life: validateCreate(newPokemon).life,
+            attack: validateCreate(newPokemon).attack,
+            defense: validateCreate(newPokemon).defense,
+            speed: validateCreate(newPokemon).speed,
+            height: validateCreate(newPokemon).height,
+            weight: validateCreate(newPokemon).weight,
+            types: validateTypes(newPokemon.types),
+        };
 
-            setErrorLife(validateCreate({ life: newPokemon.life }).life);
+        setErrors(newErrors);
+        console.log(errors);
 
-            setErrorAttack(
-                validateCreate({ attack: newPokemon.attack }).attack
-            );
-
-            setErrorDefense(
-                validateCreate({ defense: newPokemon.defense }).defense
-            );
-
-            setErrorTypes(validateTypes(newPokemon.types));
-
-            if (!Object.values(errorObj).some((error) => error !== "")) {
-                const pokemonToCreate = {
-                    ...newPokemon,
-                    types: newPokemon.types.map((type) => Number(type.id)),
-                };
-
+        if (!Object.values(errors).some((error) => error !== "")) {
+            const pokemonToCreate = {
+                ...newPokemon,
+                types: newPokemon.types.map((type) => Number(type.id)),
+            };
+            alert("created");
+        }
+        /*
                 dispatch(createPokemon(pokemonToCreate));
-                if (!globalError) {
-                    dispatch(
-                        setGlobalSuccess("New pokemon successfully created.")
-                    );
-                }
                 setNewPokemon({
                     name: "",
                     image: "",
@@ -174,13 +205,9 @@ const Create = () => {
                     types: [],
                 });
                 navigate("/home");
-            }
-        }
+                */
     };
 
-    const buttonDisabled =
-        Object.values(errorObj).some((error) => error !== "") ||
-        newPokemon.name === "";
     return (
         <div className={styles.createContainer}>
             <div className={styles.formContainer}>
@@ -190,7 +217,7 @@ const Create = () => {
                             <label htmlFor="name">Name:</label>
                             <input
                                 className={`${styles.input} ${
-                                    errorName && styles.error
+                                    errors.name && styles.error
                                 }`}
                                 type="text"
                                 id="name"
@@ -200,14 +227,14 @@ const Create = () => {
                                 onChange={handleNameChange}
                             />
                             <span className={styles.spanError}>
-                                {errorName}
+                                {errors.name}
                             </span>
                         </div>
                         <div className={styles.textInput}>
                             <label htmlFor="image">Image Link:</label>
                             <input
                                 className={`${styles.input} ${
-                                    errorImage && styles.error
+                                    errors.image && styles.error
                                 }`}
                                 type="text"
                                 id="image"
@@ -217,7 +244,7 @@ const Create = () => {
                                 onChange={handleImageChange}
                             />
                             <span className={styles.spanError}>
-                                {errorImage}
+                                {errors.image}
                             </span>
                         </div>
                     </div>
@@ -227,7 +254,7 @@ const Create = () => {
                             <label htmlFor="life">Life:</label>
                             <input
                                 className={`${styles.input} ${
-                                    errorLife && styles.error
+                                    errors.life && styles.error
                                 } ${styles.statInput}`}
                                 type="number"
                                 id="life"
@@ -236,14 +263,14 @@ const Create = () => {
                                 onChange={handleLifeChange}
                             />
                             <span className={styles.spanError}>
-                                {errorLife}
+                                {errors.life}
                             </span>
                         </div>
                         <div className={styles.stat}>
                             <label htmlFor="attack">Attack:</label>
                             <input
                                 className={`${styles.input} ${
-                                    errorAttack && styles.error
+                                    errors.attack && styles.error
                                 } ${styles.statInput}`}
                                 type="number"
                                 id="attack"
@@ -252,14 +279,14 @@ const Create = () => {
                                 onChange={handleAttackChange}
                             />
                             <span className={styles.spanError}>
-                                {errorAttack}
+                                {errors.attack}
                             </span>
                         </div>
                         <div className={styles.stat}>
                             <label htmlFor="defense">Defense:</label>
                             <input
                                 className={`${styles.input} ${
-                                    errorDefense && styles.error
+                                    errors.defense && styles.error
                                 } ${styles.statInput}`}
                                 type="number"
                                 id="defense"
@@ -268,7 +295,7 @@ const Create = () => {
                                 onChange={handleDefenseChange}
                             />
                             <span className={styles.spanError}>
-                                {errorDefense}
+                                {errors.defense}
                             </span>
                         </div>
                     </div>
@@ -278,7 +305,7 @@ const Create = () => {
                             <label htmlFor="speed">Speed:</label>
                             <input
                                 className={`${styles.input} ${
-                                    errorSpeed && styles.error
+                                    errors.speed && styles.error
                                 } ${styles.statInput}`}
                                 type="number"
                                 id="speed"
@@ -287,14 +314,14 @@ const Create = () => {
                                 onChange={handleSpeedChange}
                             />
                             <span className={styles.spanError}>
-                                {errorSpeed}
+                                {errors.speed}
                             </span>
                         </div>
                         <div className={styles.stat}>
                             <label htmlFor="height">Height:</label>
                             <input
                                 className={`${styles.input} ${
-                                    errorHeight && styles.error
+                                    errors.height && styles.error
                                 } ${styles.statInput}`}
                                 type="number"
                                 id="height"
@@ -303,14 +330,14 @@ const Create = () => {
                                 onChange={handleHeightChange}
                             />
                             <span className={styles.spanError}>
-                                {errorHeight}
+                                {errors.height}
                             </span>
                         </div>
                         <div className={styles.stat}>
                             <label htmlFor="weight">Weight:</label>
                             <input
                                 className={`${styles.input} ${
-                                    errorWeight && styles.error
+                                    errors.weight && styles.error
                                 } ${styles.statInput}`}
                                 type="number"
                                 id="weight"
@@ -319,7 +346,7 @@ const Create = () => {
                                 onChange={handleWeightChange}
                             />
                             <span className={styles.spanError}>
-                                {errorWeight}
+                                {errors.weight}
                             </span>
                         </div>
                     </div>
@@ -349,13 +376,13 @@ const Create = () => {
                             <span class={styles.loader}></span>
                         </div>
                     )}
-                    <span className={styles.spanError}>{errorTypes}</span>
+                    <span className={styles.spanError}>{errors.types}</span>
 
                     <button
                         disabled={buttonDisabled}
                         className={styles.buttonSubmit}
                     >
-                        Submit
+                        Create
                     </button>
                 </form>
             </div>
@@ -368,8 +395,7 @@ const Create = () => {
 
                 <img
                     src={
-                        newPokemon.image.slice(-3) === "png" ||
-                        (newPokemon.image.slice(-3) === "jpg" && !errorImage)
+                        newPokemon.image.slice(-3) === "png" && !errors.image
                             ? newPokemon.image
                             : pikachu
                     }
@@ -377,12 +403,12 @@ const Create = () => {
                 />
                 <div className={styles.info}>
                     <h2>
-                        {newPokemon.name.length && !errorName
+                        {newPokemon.name.length && !errors.name
                             ? newPokemon.name.replace(/\s(?=\w)/g, "")
                             : "Your pokemon"}
                     </h2>
                 </div>
-                {newPokemon.types.length && !errorTypes ? (
+                {newPokemon.types.length && !errors.types ? (
                     <div className={styles.types}>
                         {newPokemon.types.map((type) => (
                             <span

@@ -141,6 +141,10 @@
     font-family: "Montserrat", sans-serif;
 }
 
+.buttonSubmit:disabled {
+    cursor: not-allowed;
+}
+
 .previewContainer {
     padding: 0 3rem;
     box-sizing: border-box;

@@ -35,7 +35,6 @@ const initialState = {
 // ======================== Root Reducer
 
 const rootReducer = (state = initialState, action) => {
-    console.log(state);
     switch (action.type) {
         // Global Error - SETTER, REMOVER
         case GLOBAL_ERROR_SET:
