@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon -L",
+        "start": "cross-env NODE_ENV=development nodemon -L",
+        "start:prod": "cross-env NODE_ENV=production node index.js",
         "test": "mocha -w ./tests/**/*.spec.js"
     },
     "author": "Henry",
@@ -27,6 +28,7 @@
     },
     "devDependencies": {
         "chai": "^4.2.0",
+        "cross-env": "^7.0.3",
         "mocha": "^8.2.1",
         "nodemon": "^2.0.6",
         "supertest": "^6.0.1",
